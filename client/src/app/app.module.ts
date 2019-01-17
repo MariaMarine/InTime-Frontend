@@ -1,3 +1,4 @@
+import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './core/auth-interceptor.service';
 import { CoreModule } from './core/core.module';
 import { ServerErrorComponent } from './errors/server-error.component';
@@ -17,6 +18,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     HomeComponent,
     NotFoundComponent,
     ServerErrorComponent,
+    LoginComponent,
   ],
   imports: [
     HttpClientModule,
@@ -24,6 +26,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AppRoutingModule,
     NgbModule,
     CoreModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

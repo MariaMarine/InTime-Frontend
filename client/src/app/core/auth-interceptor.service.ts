@@ -16,6 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+
     let modifiedReq: HttpRequest<any> = req;
 
            const token = this.storageService.getItem('token');
@@ -24,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
         ? req.clone({
             headers: req.headers
               .set('Authorization', 'Bearer ' + token)
-              // .set('Content-Type', 'multipart/form-data')
+              .set('Content-Type', 'application/json')
           })
         : req.clone({
             headers: req.headers.set('Content-Type', 'application/json')

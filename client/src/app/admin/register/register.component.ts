@@ -1,10 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './../../core/auth.service';
-import { UserModel } from './../../models/userModel';
-// import { AuthService } from '../../core/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-// import { UserModel } from '../models/user.model';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 // import { NotificatorService } from 'src/app/core/notificator.service';
 
@@ -34,26 +31,12 @@ export class RegisterComponent implements OnInit {
   }
   public register(): void {
     this.authService.registerUser(this.regForm.value)
-    .subscribe(res =>  // change link to login
-      this.router.navigate(['/home']),
+    .subscribe(res => this.router.navigate(['/login']),
     (err: HttpErrorResponse) => {
       (err.status === 400) ?  this.error = `Invalid email or password`
         : this.error = `User already exists`;
 
     });
-    // this.error = err[0].error.message);
-    /*
-    registerUser(userData).subscribe(
-      () => {
-        // this.notificator.success('Registered successfully!');
-
-      },
-      error => {
-        console.log(error);
-        // this.notificator.error('Reason...', 'Registration failed!');
-      }
-    );
-    */
   }
 
   public cancel(): void {

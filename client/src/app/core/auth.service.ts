@@ -34,17 +34,18 @@ export class AuthService {
 
   public loginUser(user: UserModel): Observable<any> {
     return this.requester
-      .post('http://localhost:3000/auth/login', JSON.stringify(user))
+      .post('http://localhost:3000/login', JSON.stringify(user))
       .pipe(
         tap(response => {
-          this.storageService.setItem('token', (<any>response).token);
+          this.storageService.setItem('token', (<any>response));
           this.isLoggedInSubject$.next(true);
         })
       );
   }
 
+  // implement logout backend
   public logoutUser(): Observable<any> {
-    return this.requester.post('http://localhost:3000/auth/logout', null).pipe(
+    return this.requester.post('http://localhost:3000/logout', null).pipe(
       tap(() => {
         this.storageService.removeItem('token');
         this.isLoggedInSubject$.next(false);
