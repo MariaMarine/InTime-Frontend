@@ -1,3 +1,4 @@
+import { DevicesComponent } from './devices/devices.component';
 import { RegisterComponent } from './register/register.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,11 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+    // canActivate: [AnonymousRouteActivatorService]
+  },
+  {
+    path: 'devices',
+    component: DevicesComponent,
     // canActivate: [AnonymousRouteActivatorService]
   }
 ];
