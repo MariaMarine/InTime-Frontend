@@ -2,7 +2,6 @@
   <h1>Login</h1>
   <hr>
   <div>
-    <div [hidden]="!error">{{this.error}}</div>
     <form [formGroup]="loginForm" (ngSubmit)="this.login()">
       <div class="form-group">
         <label for="email">Email</label>

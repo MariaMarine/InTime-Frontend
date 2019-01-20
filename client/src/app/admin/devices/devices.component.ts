@@ -1,4 +1,4 @@
-import { EditService } from './../../core/edit.service';
+import { DeviceEditService } from './../../core/device-edit.service';
 import { Device } from './../../models/deviceModel';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
@@ -21,10 +21,9 @@ export class DevicesComponent implements OnInit {
     };
     public formGroup: FormGroup;
 
-    //private editService: EditService;
     private editedRowIndex: number;
 
-    constructor(private readonly editService: EditService) {
+    constructor(private readonly editService: DeviceEditService) {
     }
 
     public ngOnInit(): void {

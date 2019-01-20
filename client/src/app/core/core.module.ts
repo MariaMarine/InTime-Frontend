@@ -1,4 +1,5 @@
-import { EditService } from './edit.service';
+import { NotificatorService } from './notification.service';
+import { DeviceEditService } from './device-edit.service';
 import { AuthInterceptor } from './auth-interceptor.service';
 import { AuthService } from './auth.service';
 import { RequesterService } from './reqester.service';
@@ -7,15 +8,15 @@ import { RequesterService } from './reqester.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
-// import { StorageService } from './storage.service';
-// import { NotificatorService } from './notificator.service';
+
 
 @NgModule({
   providers: [
     RequesterService,
     AuthService,
     StorageService,
-    EditService,
+    DeviceEditService,
+    NotificatorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
