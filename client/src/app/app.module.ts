@@ -1,3 +1,4 @@
+import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './core/auth-interceptor.service';
 import { CoreModule } from './core/core.module';
@@ -23,6 +24,7 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
     NotFoundComponent,
     ServerErrorComponent,
     LoginComponent,
+    NavbarComponent,
   ],
   imports: [
     HttpClientModule,

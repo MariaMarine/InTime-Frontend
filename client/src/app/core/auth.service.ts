@@ -20,8 +20,8 @@ export class AuthService {
   ) {}
 
 
-  public get isLoggedIn$(): Observable<boolean> {
-    return this.isLoggedInSubject$.asObservable();
+  public get isLoggedIn$(): boolean {
+    return this.isLoggedInSubject$.value;
   }
 
 
@@ -43,14 +43,9 @@ export class AuthService {
       );
   }
 
-  // implement logout backend
-  public logoutUser(): Observable<any> {
-    return this.requester.post('http://localhost:3000/logout', null).pipe(
-      tap(() => {
-        this.storageService.removeItem('token');
-        this.isLoggedInSubject$.next(false);
-      })
-    );
+  public logoutUser() {
+    this.storageService.removeItem('token');
+    return this.isLoggedInSubject$.next(false);
   }
 
   private hasToken(): boolean {

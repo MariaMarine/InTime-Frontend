@@ -1,18 +1,19 @@
 import { DeviceEditService } from './../../core/device-edit.service';
 import { Device } from './../../models/deviceModel';
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
 import { map } from 'rxjs/operators/map';
+import { NavbarService } from 'src/app/core/navbar.service';
 
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.css']
 })
-export class DevicesComponent implements OnInit {
+export class DevicesComponent implements OnInit, OnDestroy {
     public view: Observable<GridDataResult>;
     public gridState: State = {
         sort: [],
@@ -23,14 +24,19 @@ export class DevicesComponent implements OnInit {
 
     private editedRowIndex: number;
 
-    constructor(private readonly editService: DeviceEditService) {
+    constructor(private readonly editService: DeviceEditService,
+        public nav: NavbarService) {
     }
 
     public ngOnInit(): void {
+        this.nav.show();
         this.view = this.editService.pipe(map(data => process(data, this.gridState)));
         this.editService.read();
     }
 
+    public ngOnDestroy():void {
+        this.nav.hide();
+    }
     public onStateChange(state: State) {
         this.gridState = state;
         this.editService.read();

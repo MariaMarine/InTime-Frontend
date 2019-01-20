@@ -1,0 +1,7 @@
+.nav-link.active {
+  text-emphasis: true;
+}
+
+.logout:hover {
+  cursor: pointer;
+}

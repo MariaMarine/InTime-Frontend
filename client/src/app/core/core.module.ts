@@ -8,6 +8,7 @@ import { RequesterService } from './reqester.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
+import { NavbarService } from './navbar.service';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { StorageService } from './storage.service';
     StorageService,
     DeviceEditService,
     NotificatorService,
+    NavbarService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
