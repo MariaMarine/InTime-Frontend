@@ -1,3 +1,4 @@
+import { JwtService } from './jwt.service';
 import { NotificatorService } from './notification.service';
 import { DeviceEditService } from './device-edit.service';
 import { AuthInterceptor } from './guards-interceptors/auth-interceptor.service';
@@ -8,6 +9,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { NavbarService } from './navbar.service';
 import { AuthRouteActivatorService } from './guards-interceptors/auth-route-activator.service';
+import { AdminRouteActivatorService } from './guards-interceptors/admin-route-activator.service';
 
 @NgModule({
   providers: [
@@ -18,6 +20,8 @@ import { AuthRouteActivatorService } from './guards-interceptors/auth-route-acti
     NotificatorService,
     NavbarService,
     AuthRouteActivatorService,
+    AdminRouteActivatorService,
+    JwtService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -3,19 +3,18 @@ import { DevicesComponent } from './devices/devices.component';
 import { RegisterComponent } from './register/register.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { AdminRouteActivatorService } from '../core/guards-interceptors/admin-route-activator.service';
 
 const routes: Routes = [
-    // change redirect to main page
-  // { path: '', redirectTo: '/admin/register', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   {
     path: 'register',
     component: RegisterComponent,
-    // canActivate: [AnonymousRouteActivatorService]
   },
   {
     path: 'devices',
     component: DevicesComponent,
-    canActivate: [AuthRouteActivatorService]
+    canActivate: [AuthRouteActivatorService, AdminRouteActivatorService]
   }
 ];
 
