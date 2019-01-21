@@ -11,11 +11,10 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './errors/not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationModule } from '@progress/kendo-angular-notification';
-
-
+import { MainComponent } from './main/main.component';
+import { SplitterModule } from '@progress/kendo-angular-layout';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +23,7 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
     ServerErrorComponent,
     LoginComponent,
     NavbarComponent,
+    MainComponent,
   ],
   imports: [
     HttpClientModule,
@@ -34,6 +34,7 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NotificationModule,
+    SplitterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

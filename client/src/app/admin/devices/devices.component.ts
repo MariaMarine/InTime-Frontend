@@ -25,7 +25,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
     private editedRowIndex: number;
 
     constructor(private readonly editService: DeviceEditService,
-        public nav: NavbarService) {
+        private readonly nav: NavbarService) {
     }
 
     public ngOnInit(): void {
@@ -34,7 +34,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
         this.editService.read();
     }
 
-    public ngOnDestroy():void {
+    public ngOnDestroy(): void {
         this.nav.hide();
     }
     public onStateChange(state: State) {

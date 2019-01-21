@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(this.loginForm.value).subscribe(
       res => {
         this.notificationService.show('Successful login!', 'success');
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/main']);
       },
     (err: HttpErrorResponse) => {
       (err.status === 400) ? this.notificationService.show('Invalid email or password', 'error')
