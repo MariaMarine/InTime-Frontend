@@ -1,10 +1,8 @@
+import { AuthRouteActivatorService } from './../core/guards-interceptors/auth-route-activator.service';
 import { DevicesComponent } from './devices/devices.component';
 import { RegisterComponent } from './register/register.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-
-// import { AuthRouteActivatorService } from '../core/route-guards/auth-route-activator.service';
-// import { AnonymousRouteActivatorService } from '../core/route-guards/anonymous-route-activator.service';
 
 const routes: Routes = [
     // change redirect to main page
@@ -17,7 +15,7 @@ const routes: Routes = [
   {
     path: 'devices',
     component: DevicesComponent,
-    // canActivate: [AnonymousRouteActivatorService]
+    canActivate: [AuthRouteActivatorService]
   }
 ];
 

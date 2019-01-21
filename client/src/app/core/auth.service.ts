@@ -20,8 +20,8 @@ export class AuthService {
   ) {}
 
 
-  public get isLoggedIn$(): boolean {
-    return this.isLoggedInSubject$.value;
+  public get isLoggedIn$(): Observable<boolean> {
+    return this.isLoggedInSubject$.asObservable();
   }
 
 

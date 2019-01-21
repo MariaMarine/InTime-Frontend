@@ -1,15 +1,13 @@
 import { NotificatorService } from './notification.service';
 import { DeviceEditService } from './device-edit.service';
-import { AuthInterceptor } from './auth-interceptor.service';
+import { AuthInterceptor } from './guards-interceptors/auth-interceptor.service';
 import { AuthService } from './auth.service';
 import { RequesterService } from './reqester.service';
-// import { AnonymousRouteActivatorService } from './route-guards/anonymous-route-activator.service';
-// import { AuthRouteActivatorService } from './route-guards/auth-route-activator.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { NavbarService } from './navbar.service';
-
+import { AuthRouteActivatorService } from './guards-interceptors/auth-route-activator.service';
 
 @NgModule({
   providers: [
@@ -19,15 +17,12 @@ import { NavbarService } from './navbar.service';
     DeviceEditService,
     NotificatorService,
     NavbarService,
+    AuthRouteActivatorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
     },
-/*
-    AuthRouteActivatorService,
-    AnonymousRouteActivatorService
-    */
   ]
 })
 export class CoreModule {

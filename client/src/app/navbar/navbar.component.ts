@@ -2,6 +2,8 @@ import { AuthService } from './../core/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from '../core/navbar.service';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -13,9 +15,9 @@ export class NavbarComponent implements OnInit {
   constructor(private readonly auth: AuthService,
       private readonly router: Router,
       public nav: NavbarService ) {}
-  isLoggedIn(): boolean {
-    return this.auth.isLoggedIn$;
-  }
+    public isLoggedIn(): Observable<boolean> {
+        return this.auth.isLoggedIn$;
+          }
 
   logOut(): void {
     this.auth.logoutUser();
