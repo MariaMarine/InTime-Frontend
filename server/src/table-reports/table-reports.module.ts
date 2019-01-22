@@ -1,3 +1,4 @@
+import { User } from './../data/entities/user.entity';
 import { StartDate } from './../data/entities/start-date.entity';
 import { ChartReport } from 'src/data/entities/chart-report.entity';
 import { TableReportsService } from './table-reports.service';
@@ -12,7 +13,7 @@ import { ApiService } from './api.service';
 import { ChartReportsService } from './chart-reports/chart-reports.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TableReport, Device, ChartReport, StartDate]), CoreModule, AuthModule, HttpModule],
+  imports: [TypeOrmModule.forFeature([TableReport, Device, ChartReport, StartDate, User]), CoreModule, AuthModule, HttpModule],
   providers: [TableReportsService, ApiService, ChartReportsService],
   exports: [],
   controllers: [TableReportsController],

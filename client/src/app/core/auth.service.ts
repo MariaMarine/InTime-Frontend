@@ -55,7 +55,6 @@ export class AuthService {
 
   public isAdmin(): boolean {
     const token = this.decodeToken();
-    console.log(token.isAdmin);
     return token.isAdmin;
   }
   private hasToken(): boolean {

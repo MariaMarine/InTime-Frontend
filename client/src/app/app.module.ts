@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './interceptors/auth-interceptor.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { CoreModule } from './core/core.module';
@@ -14,7 +15,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationModule } from '@progress/kendo-angular-notification';
 import { MainComponent } from './main/main.component';
-import { SplitterModule } from '@progress/kendo-angular-layout';
+
+import { ReportsComponent } from './main/reports/reports.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +25,6 @@ import { SplitterModule } from '@progress/kendo-angular-layout';
     ServerErrorComponent,
     LoginComponent,
     NavbarComponent,
-    MainComponent,
   ],
   imports: [
     HttpClientModule,
@@ -34,9 +35,12 @@ import { SplitterModule } from '@progress/kendo-angular-layout';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NotificationModule,
-    SplitterModule,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

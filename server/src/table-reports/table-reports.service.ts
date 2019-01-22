@@ -15,15 +15,17 @@ export class TableReportsService {
         private readonly tableReportsRepository: Repository<TableReport>,
         @InjectRepository(Device)
         private readonly devicesRepository: Repository<Device>,
+
+        @InjectRepository(User)
+        private readonly usersRepository: Repository<User>,
     ) { }
 
     async getTableReportById(tableId: string): Promise<TableReport> {
 
         return await this.tableReportsRepository.findOne({ where: { id: tableId } });
     }
-    async getTableReports(): Promise<TableReport[]> {
-
-        return await this.tableReportsRepository.find();
+    async getTableReports(req): Promise<TableReport[]> {
+        return await this.tableReportsRepository.find({ where: { user: req.user }});
     }
 
     async confirmCurrentUser(userLogged, tableUser) {
@@ -34,22 +36,29 @@ export class TableReportsService {
 
     async createTableReport(tableReportDTO: CreateTableReportDTO, user: User): Promise<TableReport> {
         let endDate: number = Date.now();
-
         if (tableReportDTO.offset) {
             endDate -= ((tableReportDTO.offset.days * 24) + tableReportDTO.offset.hours) * 3600 * 1000;
         }
 
         const startDate: number = endDate - (tableReportDTO.period * 3600 * 1000);
+        const userFound = await this.usersRepository.findOne(
+            { relations: [ 'adminUser'],
+                where: { id: user.id },
+        });
 
-        const devices: Device[] = await this.devicesRepository.find({ where: { name: In(tableReportDTO.deviceNames) } });
-
+        const admin = await this.usersRepository.findOne(
+                { relations: ['devices'],
+                where: { id: userFound.adminUser.id },
+        });
+        const devicesFound = admin.devices;
+        const devices = devicesFound.filter(x =>
+            tableReportDTO.deviceNames.indexOf(x.name) >= 0);
         const tableReport: TableReport = new TableReport();
         tableReport.name = tableReportDTO.name;
         tableReport.startDateInMilliseconds = startDate;
         tableReport.endDateInMilliseconds = endDate;
         tableReport.user = user;
         tableReport.devices = tableReport.devices ? [...tableReport.devices, ...devices] : [...devices];
-
         this.tableReportsRepository.create(tableReport);
         return await this.tableReportsRepository.save(tableReport);
     }

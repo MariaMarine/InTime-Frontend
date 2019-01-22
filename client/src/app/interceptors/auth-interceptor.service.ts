@@ -1,4 +1,5 @@
-import { StorageService } from './../storage.service';
+import { StorageService } from './../core/storage.service';
+
 import {
   HttpInterceptor,
   HttpRequest,
@@ -16,7 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-
     let modifiedReq: HttpRequest<any> = req;
 
            const token = this.storageService.getItem('token');

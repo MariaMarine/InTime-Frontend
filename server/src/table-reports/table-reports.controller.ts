@@ -20,8 +20,8 @@ export class TableReportsController {
 
   @Get()
   @UseGuards(AuthGuard())
-  async allTableReports(): Promise<TableReport[]> {
-    return await this.tableReportsService.getTableReports();
+  async allTableReports(@Request() req): Promise<TableReport[]> {
+    return await this.tableReportsService.getTableReports(req);
   }
 
   @Post()

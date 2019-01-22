@@ -11,8 +11,9 @@ export class ApiService {
   async tableReport(report: TableReport) {
     const devices: string = report.devices.map(x => x.name).join(',');
     // tslint:disable-next-line:object-literal-key-quotes
-    const period = `{"from": ${report.startDateInMilliseconds},"to": ${report.endDateInMilliseconds}}`;
+    const period = `{"from":${report.startDateInMilliseconds},"to":${report.endDateInMilliseconds}}`;
     const url = `http://ec2-35-158-53-19.eu-central-1.compute.amazonaws.com:8080/api/travelTimeTableData?devices=${devices}&date=${period}`;
+    console.log(devices, period);
     const result = await this.httpService.get(url).toPromise();
     return result.data;
   }

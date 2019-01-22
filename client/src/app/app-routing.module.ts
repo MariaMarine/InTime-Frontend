@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'main', component: MainComponent, canActivate: [AuthRouteActivatorService] },
+  { path: 'main', loadChildren: './main/main.module#MainModule', canActivate: [AuthRouteActivatorService] },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
 ];
 

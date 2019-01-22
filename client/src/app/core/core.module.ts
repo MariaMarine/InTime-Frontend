@@ -1,7 +1,6 @@
 import { JwtService } from './jwt.service';
 import { NotificatorService } from './notification.service';
 import { DeviceEditService } from './device-edit.service';
-import { AuthInterceptor } from './guards-interceptors/auth-interceptor.service';
 import { AuthService } from './auth.service';
 import { RequesterService } from './reqester.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
@@ -22,11 +21,6 @@ import { AdminRouteActivatorService } from './guards-interceptors/admin-route-ac
     AuthRouteActivatorService,
     AdminRouteActivatorService,
     JwtService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
   ]
 })
 export class CoreModule {
