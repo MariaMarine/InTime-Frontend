@@ -1,0 +1,13 @@
+<h5>{{table.name}}: {{table.startDateInMilliseconds | date :'short'  }} - {{table.endDateInMilliseconds | date :'short'}}</h5>
+
+<table style="width:100%">
+        <tr>
+            <th></th>
+            <th *ngFor= "let column of table.devices"> {{column.name}}</th>
+        </tr>
+        <tr *ngFor= "let row of table.devices">
+            <td><strong>{{row.name}}</strong></td>
+            <td *ngFor= "let device of table.devices" >{{setRowCol(device.name, row.name) }} {{ ((tableData | async )[currentCol])[currentRow] }}</td>
+        </tr>
+      </table>
+      <hr>

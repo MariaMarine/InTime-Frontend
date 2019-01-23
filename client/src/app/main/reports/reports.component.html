@@ -1,3 +1,7 @@
+<div>
 <p>
   <button>Create new</button>
+  <app-table-report *ngFor="let table of this.tableReports" [table]="table">
+  </app-table-report>
 </p>
+</div>
