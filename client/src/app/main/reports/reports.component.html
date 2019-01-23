@@ -1,7 +1,10 @@
-<div>
-<p>
-  <button>Create new</button>
+<div class ="w-75 mx-auto">
+
+  <h1 class="display-4">Reports</h1>
+  <div class="text-right">
+  <button type="button" class="btn btn-outline-info">Create new table</button>
+</div>
   <app-table-report *ngFor="let table of this.tableReports" [table]="table">
   </app-table-report>
-</p>
+
 </div>

@@ -1,10 +1,9 @@
-import { browser } from 'protractor';
+import { Device } from './../../models/deviceModel';
+import { GridDataResult } from '@progress/kendo-angular-grid';
+import { State, process } from '@progress/kendo-data-query';
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
-  ViewChild,
   OnInit
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,6 +11,7 @@ import { Table } from 'src/app/models/tableModel';
 import { RequesterService } from 'src/app/core/reqester.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-table-report',
@@ -24,6 +24,7 @@ export class TableReportComponent implements OnInit {
   public tableData: Observable<any>;
   public currentRow: string;
   public currentCol: string;
+
   public constructor(private readonly router: Router,
     private readonly requester: RequesterService) {}
 
@@ -32,7 +33,7 @@ export class TableReportComponent implements OnInit {
     const devices: string = this.table.devices.map(x => x.name).join(',');
     const period = `{"from":${this.table.startDateInMilliseconds},"to":${this.table.endDateInMilliseconds}}`;
     return this.call(devices, period);
-   // this.extractReports(data);
+
   }
 
 private call(devices, period) {

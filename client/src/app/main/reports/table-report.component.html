@@ -1,13 +1,22 @@
-<h5>{{table.name}}: {{table.startDateInMilliseconds | date :'short'  }} - {{table.endDateInMilliseconds | date :'short'}}</h5>
+<hr>
 
-<table style="width:100%">
+<h5>{{table.name}}  <small class="text-muted">({{table.startDateInMilliseconds | date :'short'  }} - {{table.endDateInMilliseconds | date :'short'}})</small></h5>
+
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead class="thead-light">
         <tr>
             <th></th>
-            <th *ngFor= "let column of table.devices"> {{column.name}}</th>
+            <th scope="col" *ngFor= "let column of table.devices"> {{column.name}}</th>
         </tr>
+    </thead>
+    <tbody>
         <tr *ngFor= "let row of table.devices">
-            <td><strong>{{row.name}}</strong></td>
-            <td *ngFor= "let device of table.devices" >{{setRowCol(device.name, row.name) }} {{ ((tableData | async )[currentCol])[currentRow] }}</td>
+            <th scope="row">{{row.name}}</th>
+            <td class="cell-hover" *ngFor= "let device of table.devices" >{{setRowCol(device.name, row.name) }} {{ ((tableData | async )[currentCol])[currentRow] }}</td>
         </tr>
+    </tbody>
       </table>
-      <hr>
+
+
+   
+

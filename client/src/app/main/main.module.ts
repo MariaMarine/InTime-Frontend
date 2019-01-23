@@ -6,7 +6,6 @@ import { MainRoutingModule } from './main-routing.module';
 import { SplitterModule } from '@progress/kendo-angular-layout';
 import { TableReportComponent } from './reports/table-report.component';
 import { CommonModule } from '@angular/common';
-// import { TableReportsResolverService } from './reports/table-reports-resolver.service';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
