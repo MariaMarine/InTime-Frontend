@@ -20,17 +20,21 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/leaflet/images/marker-icon-2x.png",
+              "src/assets/leaflet/images/marker-shadow.png"
             ],
             "styles": [
+              "src/assets/leaflet/leaflet.css",
               {
                 "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
               },
               "src/styles.css",
               "src/app/all.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
             ],
             "scripts": [
+              "src/assets/leaflet/leaflet.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
