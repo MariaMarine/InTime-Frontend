@@ -1,3 +1,4 @@
+import { Device } from 'src/app/models/deviceModel';
 import { Component, OnInit, OnChanges, Input, SimpleChanges, AfterViewInit, ViewChild } from '@angular/core';
 import { RequesterService } from 'src/app/core/reqester.service';
 import { map } from 'rxjs/operators';
@@ -13,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ReportsComponent implements OnInit {
 
+  public devices: Device [];
   public tableReports: Table[];
   public createMode: boolean;
   public routeForm: FormGroup;
@@ -26,11 +28,12 @@ export class ReportsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.createMode = false;
-    const data = this.route.snapshot.data['reports'];
-    this.extractReports(data);
+    this.tableReports = this.route.snapshot.data['reports'];
+    this.devices = this.route.snapshot.data['devices'];
+
     const name = this.formBuilder.control('', [Validators.required]);
     const period = this.formBuilder.control('', [Validators.required, Validators.min(1)]);
-    const deviceNames = this.formBuilder.control(['two', 'three'], []);
+    const deviceNames = this.formBuilder.control('', [Validators.required]);
     this.routeForm = this.formBuilder.group({
         name,
         period,
@@ -38,6 +41,7 @@ export class ReportsComponent implements OnInit {
     });
   }
   public createRoute() {
+    console.log(this.routeForm.value);
     this.http.post('http://localhost:3000/table-reports', JSON.stringify(this.routeForm.value))
     .subscribe(() => {
         this.notificationService.show('Report added!', 'success');
@@ -51,9 +55,6 @@ export class ReportsComponent implements OnInit {
   }
   public cancel(): void {
     this.createMode = false;
-  }
-
-  private extractReports(data: any): void {
-    this.tableReports = data;
+    this.routeForm.reset();
   }
 }

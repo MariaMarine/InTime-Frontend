@@ -1,3 +1,4 @@
+import { DeviceResolverService } from './../core/device-resolver.service';
 // import { TableReportsResolverService } from './reports/table-reports-resolver.service';
 import { ReportsResolverService } from '../core/reports-resolver.service';
 import { MainComponent } from './main.component';
@@ -10,8 +11,8 @@ const routes: Routes = [
     path: '',
     runGuardsAndResolvers: 'always',
     component: MainComponent,
-    resolve: { reports: ReportsResolverService
-      // , tables: TableReportsResolverService
+    resolve: { reports: ReportsResolverService,
+      devices: DeviceResolverService,
     }
   },
 ];

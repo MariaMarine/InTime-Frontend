@@ -1,3 +1,4 @@
+import { DeviceResolverService } from './device-resolver.service';
 import { JwtService } from './jwt.service';
 import { NotificatorService } from './notification.service';
 import { DeviceEditService } from './device-edit.service';
@@ -22,6 +23,7 @@ import { ReportsResolverService } from './reports-resolver.service';
     AdminRouteActivatorService,
     JwtService,
     ReportsResolverService,
+    DeviceResolverService,
   ]
 })
 export class CoreModule {
