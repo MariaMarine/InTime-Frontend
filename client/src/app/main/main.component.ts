@@ -8,7 +8,7 @@ import { NavbarService } from '../core/navbar.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
- 
+
   mapLoaded: boolean;
   @ViewChild(MapComponent) leaflet;
   constructor(private readonly nav: NavbarService) { }
@@ -22,7 +22,6 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
     this.nav.hide();
 }
   ngAfterViewInit(): void {
-    console.log("loaded");
     this.mapLoaded = true;
 }
 }
