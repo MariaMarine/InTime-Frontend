@@ -8,6 +8,7 @@ const routes: Routes = [
 
   {
     path: '',
+    runGuardsAndResolvers: 'always',
     component: MainComponent,
     resolve: { reports: ReportsResolverService
       // , tables: TableReportsResolverService

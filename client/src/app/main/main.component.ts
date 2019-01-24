@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MapComponent } from './map/map.component';
+import { Component, OnInit, OnDestroy, OnChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { NavbarService } from '../core/navbar.service';
 
 @Component({
@@ -6,16 +7,22 @@ import { NavbarService } from '../core/navbar.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit, OnDestroy {
-
+export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
+ 
+  mapLoaded: boolean;
+  @ViewChild(MapComponent) leaflet;
   constructor(private readonly nav: NavbarService) { }
 
   ngOnInit() {
+    this.mapLoaded = false;
     this.nav.show();
   }
 
   ngOnDestroy(): void {
     this.nav.hide();
 }
-
+  ngAfterViewInit(): void {
+    console.log("loaded");
+    this.mapLoaded = true;
+}
 }

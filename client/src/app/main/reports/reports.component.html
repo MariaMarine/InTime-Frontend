@@ -2,8 +2,28 @@
 
   <h1 class="display-4">Reports</h1>
   <div class="text-right">
-  <button type="button" class="btn btn-outline-info">Create new table</button>
+  <button type="button" class="btn btn-outline-info" (click)="createMode=true">Create new table</button>
 </div>
+ 
+ <div *ngIf="createMode">
+  <form [formGroup]="routeForm" (ngSubmit)="this.createRoute()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input formControlName="name" required id="name" type="text" class="form-control" placeholder="Name..." />
+    </div>
+    <div class="form-group">
+      <label for="period">Period</label>
+      <input formControlName="period" required id="period" type="number" class="form-control" placeholder="Period (in hours)..." />
+    </div>
+    <div class="form-group">
+        <label for="deviceNames">Devices</label>
+        <input formControlName="deviceNames" required id="devices" type="text" class="form-control" placeholder="Devices..." />
+      </div>
+    <button [disabled]="this.routeForm.invalid" type="submit" class="btn btn-info" >Create</button>
+    <button type="button" class="btn btn-default" (click)="this.cancel()">Cancel</button>
+  </form>
+</div>
+
   <app-table-report *ngFor="let table of this.tableReports" [table]="table">
   </app-table-report>
 

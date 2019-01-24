@@ -1,4 +1,4 @@
-// import { ReportsResolverService } from '../core/reports-resolver.service';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main.component';
 import { ReportsComponent } from './reports/reports.component';
 import { NgModule } from '@angular/core';
@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
     MainComponent,
     TableReportComponent,
   ],
-  imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule ],
+  imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule, ReactiveFormsModule, ],
   providers: [],
   exports: [MainComponent, MapComponent]
 })

@@ -27,6 +27,7 @@ export class TableReportsController {
   @Post()
   @UseGuards(AuthGuard())
   async create(@Request() req, @Body() tableReportDTO: CreateTableReportDTO) {
+    console.log(tableReportDTO);
     const tableReport = await this.tableReportsService.createTableReport(tableReportDTO, req.user);
     return await this.apiService.tableReport(tableReport);
   }
