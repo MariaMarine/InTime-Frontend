@@ -4,11 +4,11 @@ import { DeviceEditService } from './device-edit.service';
 import { AuthService } from './auth.service';
 import { RequesterService } from './reqester.service';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { NavbarService } from './navbar.service';
-import { AuthRouteActivatorService } from './guards-interceptors/auth-route-activator.service';
-import { AdminRouteActivatorService } from './guards-interceptors/admin-route-activator.service';
+import { AuthRouteActivatorService } from './guards/auth-route-activator.service';
+import { AdminRouteActivatorService } from './guards/admin-route-activator.service';
+import { ReportsResolverService } from './reports-resolver.service';
 
 @NgModule({
   providers: [
@@ -21,6 +21,7 @@ import { AdminRouteActivatorService } from './guards-interceptors/admin-route-ac
     AuthRouteActivatorService,
     AdminRouteActivatorService,
     JwtService,
+    ReportsResolverService,
   ]
 })
 export class CoreModule {

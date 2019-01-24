@@ -21,6 +21,5 @@ export class ReportsComponent implements OnInit {
 
   private extractReports(data: any): void {
     this.tableReports = data;
-    console.log(this.tableReports);
   }
 }

@@ -1,4 +1,4 @@
-import { AuthRouteActivatorService } from './core/guards-interceptors/auth-route-activator.service';
+import { AuthRouteActivatorService } from './core/guards/auth-route-activator.service';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';

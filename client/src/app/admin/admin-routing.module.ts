@@ -1,9 +1,9 @@
-import { AuthRouteActivatorService } from './../core/guards-interceptors/auth-route-activator.service';
+import { AuthRouteActivatorService } from './../core/guards/auth-route-activator.service';
 import { DevicesComponent } from './devices/devices.component';
 import { RegisterComponent } from './register/register.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { AdminRouteActivatorService } from '../core/guards-interceptors/admin-route-activator.service';
+import { AdminRouteActivatorService } from '../core/guards/admin-route-activator.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },

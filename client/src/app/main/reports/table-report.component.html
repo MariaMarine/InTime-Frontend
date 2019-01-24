@@ -12,7 +12,7 @@
     <tbody>
         <tr *ngFor= "let row of table.devices">
             <th scope="row">{{row.name}}</th>
-            <td class="cell-hover" *ngFor= "let device of table.devices" >{{setRowCol(device.name, row.name) }} {{ ((tableData | async )[currentCol])[currentRow] }}</td>
+            <td class="cell-hover" *ngFor= "let device of table.devices" >{{setRowCol(device.name, row.name) }} {{ (tableData !== undefined) ? ((tableData )[currentCol])[currentRow] : 5 }}</td>
         </tr>
     </tbody>
       </table>

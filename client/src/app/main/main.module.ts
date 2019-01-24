@@ -1,4 +1,4 @@
-import { ReportsResolverService } from './reports/reports-resolver.service';
+// import { ReportsResolverService } from '../core/reports-resolver.service';
 import { MainComponent } from './main.component';
 import { ReportsComponent } from './reports/reports.component';
 import { NgModule } from '@angular/core';
@@ -8,6 +8,7 @@ import { TableReportComponent } from './reports/table-report.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -15,7 +16,7 @@ import { FormsModule } from '@angular/forms';
     TableReportComponent,
   ],
   imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule ],
-  providers: [ReportsResolverService],
+  providers: [],
   exports: [MainComponent]
 })
 export class MainModule {}
