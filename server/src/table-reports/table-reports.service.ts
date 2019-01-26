@@ -94,7 +94,7 @@ export class TableReportsService {
                 }
                 devicesToPush.push(deviceFound);
             }));
-
+            tableToUpdate.period = updateTableReportDTO.period;
             tableToUpdate.devices = devicesToPush;
         }
         await this.tableReportsRepository.update(tableId, tableToUpdate);

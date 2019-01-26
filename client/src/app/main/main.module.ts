@@ -10,7 +10,7 @@ import { SplitterModule } from '@progress/kendo-angular-layout';
 import { TableReportComponent } from './reports/table-report.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { MultiSelectModule } from '@progress/kendo-angular-dropdowns';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
     TableReportEditComponent,
   ],
   imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule,
-    ReactiveFormsModule, NgbModule],
+    ReactiveFormsModule, NgbModule, MultiSelectModule],
   providers: [],
   exports: [MainComponent, MapComponent]
 })

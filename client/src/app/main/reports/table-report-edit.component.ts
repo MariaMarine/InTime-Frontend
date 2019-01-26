@@ -18,6 +18,7 @@ import { Table } from 'src/app/models/tableModel';
     @Output() public edited = new EventEmitter<boolean>();
     public editComplete = false;
     @Input() public modifyMode: boolean;
+    public value: any [];
 
     @Input() public currentTable: Table;
 
@@ -29,11 +30,12 @@ import { Table } from 'src/app/models/tableModel';
     ) {}
     ngOnInit(): void {
         this.devices = this.route.snapshot.data['devices'];
+        this.value = this.modifyMode ? this.currentTable.devices.map (device => device.name) : [];
         const name = this.formBuilder.control(this.modifyMode ? `${this.currentTable.name}`
             : '', [Validators.required]);
         const period = this.formBuilder.control(this.modifyMode ? `${this.currentTable.period }`
             : '', [Validators.required, Validators.min(1)]);
-        const deviceNames = this.formBuilder.control('', [Validators.required]);
+        const deviceNames = this.formBuilder.control([...this.value], [Validators.required]);
         this.routeForm = this.formBuilder.group({
             name,
             period,
