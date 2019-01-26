@@ -16,9 +16,10 @@ import { RequesterService } from 'src/app/core/reqester.service';
 })
 export class TableReportComponent implements OnInit {
   @Input() public table: Table;
-
   @Output() edited = new EventEmitter<boolean>();
   editComplete = false;
+
+  @Output() modifyTable = new EventEmitter<Table>();
 
   public tableData: any;
   public currentRow: string;
@@ -47,6 +48,9 @@ export class TableReportComponent implements OnInit {
       });
   }
 
+  public editTable() {
+    this.modifyTable.emit(this.table);
+  }
   private call(devices, period) {
     const url = `http://ec2-35-158-53-19.eu-central-1.compute.amazonaws.com:8080/api/travelTimeTableData?devices=${devices}&date=${period}`;
     return this.requester.get(url).subscribe(data => this.tableData = data);

@@ -5,6 +5,6 @@ export class Table {
     id: string;
     name: string;
     devices: Device[];
-    endDateInMilliseconds: string;
-    startDateInMilliseconds: string;
+    endDateInMilliseconds: number;
+    startDateInMilliseconds: number;
 }

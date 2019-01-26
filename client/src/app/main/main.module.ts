@@ -1,3 +1,4 @@
+import { TableReportEditComponent } from './reports/table-report-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main.component';
@@ -18,8 +19,9 @@ import { FormsModule } from '@angular/forms';
     MapComponent,
     MainComponent,
     TableReportComponent,
+    TableReportEditComponent,
   ],
-  imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule, 
+  imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule,
     ReactiveFormsModule, NgbModule],
   providers: [],
   exports: [MainComponent, MapComponent]

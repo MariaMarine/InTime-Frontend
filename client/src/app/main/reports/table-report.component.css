@@ -3,11 +3,15 @@ table, th, td {
     text-align: center;
   }
 
-  .cell-hover:hover {
+.cell-hover:hover {
     cursor: pointer;
   }
-  .k-i-close {
+.k-icon {
     color: grey; 
     float: right;
     margin-right: 1em;
+}
+
+.k-icon:hover {
+  cursor: pointer;
 }
