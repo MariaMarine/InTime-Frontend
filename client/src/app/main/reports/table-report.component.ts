@@ -16,11 +16,10 @@ import { RequesterService } from 'src/app/core/reqester.service';
 })
 export class TableReportComponent implements OnInit {
   @Input() public table: Table;
-  @Output() edited = new EventEmitter<boolean>();
-  editComplete = false;
-
-  @Output() modifyTable = new EventEmitter<Table>();
-
+  @Input() public createMode: boolean;
+  @Output() public edited = new EventEmitter<boolean>();
+  public editComplete = false;
+  @Output() public modifyTable = new EventEmitter<Table>();
   public tableData: any;
   public currentRow: string;
   public currentCol: string;
@@ -30,9 +29,10 @@ export class TableReportComponent implements OnInit {
 
   ngOnInit() {
     const devices: string = this.table.devices.map(x => x.name).join(',');
-    const period = `{"from":${this.table.startDateInMilliseconds},"to":${this.table.endDateInMilliseconds}}`;
+    const endDate: number = Date.now();
+    const startDate: number = endDate - (this.table.period * 3600 * 1000);
+    const period = `{"from":${startDate},"to":${endDate}}`;
     return this.call(devices, period);
-
   }
 
   public setRowCol(col, row) {
@@ -41,15 +41,19 @@ export class TableReportComponent implements OnInit {
   }
 
   public deleteTable() {
+    if (!this.createMode) {
     this.requester.delete(`http://localhost:3000/table-reports/${this.table.id}`)
       .subscribe(res => {
         this.editComplete = true;
         this.edited.emit(this.editComplete);
       });
+    }
   }
 
   public editTable() {
+    if (!this.createMode) {
     this.modifyTable.emit(this.table);
+    }
   }
   private call(devices, period) {
     const url = `http://ec2-35-158-53-19.eu-central-1.compute.amazonaws.com:8080/api/travelTimeTableData?devices=${devices}&date=${period}`;

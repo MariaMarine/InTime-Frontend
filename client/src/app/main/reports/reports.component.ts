@@ -35,6 +35,7 @@ export class ReportsComponent implements OnInit {
     this.createMode = false;
     this.modifyMode = false;
     if (edited) {
+    window.scrollTo(0, 0);
     return this.http.get('http://localhost:3000/table-reports').subscribe((res: Table[]) => {
       this.tableReports = res;
       });

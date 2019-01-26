@@ -9,8 +9,8 @@
 <app-table-report-edit *ngIf="createMode" (edited)="onEdit($event)"
 [modifyMode]="modifyMode" [currentTable]="currentTable"></app-table-report-edit>
 
-  <app-table-report *ngFor="let table of this.tableReports" [table]="table"
-    (edited)="onEdit($event)" (modifyTable)="modify($event)">
-  </app-table-report>
+<app-table-report *ngFor="let table of this.tableReports" [table]="table" 
+[createMode]="createMode" (edited)="onEdit($event)" (modifyTable)="modify($event)">
+</app-table-report>
 
 </div>

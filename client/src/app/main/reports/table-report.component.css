@@ -12,6 +12,6 @@ table, th, td {
     margin-right: 1em;
 }
 
-.k-icon:hover {
+.pointer:hover {
   cursor: pointer;
 }

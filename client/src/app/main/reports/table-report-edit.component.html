@@ -10,9 +10,10 @@
     <div class="form-group">
       <label for="deviceNames">Devices</label>
       <select multiple formControlName="deviceNames" required id="devices" type="text" class="form-control">
-        <option *ngFor="let device of devices">{{device.name}}</option>
+        <option *ngFor="let device of devices">
+          {{device.name}}</option>
       </select>
     </div>
     <button [disabled]="this.routeForm.invalid" type="submit" class="btn btn-info" > Save </button>
     <button type="button" class="btn btn-default" (click)="this.cancel()">Cancel</button>
-  </form>
+</form>

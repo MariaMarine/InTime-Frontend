@@ -58,6 +58,7 @@ export class TableReportsService {
         tableReport.startDateInMilliseconds = startDate;
         tableReport.endDateInMilliseconds = endDate;
         tableReport.user = user;
+        tableReport.period = tableReportDTO.period;
         tableReport.devices = tableReport.devices ? [...tableReport.devices, ...devices] : [...devices];
         this.tableReportsRepository.create(tableReport);
         return await this.tableReportsRepository.save(tableReport);

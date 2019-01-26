@@ -31,9 +31,8 @@ import { Table } from 'src/app/models/tableModel';
         this.devices = this.route.snapshot.data['devices'];
         const name = this.formBuilder.control(this.modifyMode ? `${this.currentTable.name}`
             : '', [Validators.required]);
-        const period = this.formBuilder.control(this.modifyMode ?
-            `${(this.currentTable.endDateInMilliseconds - this.currentTable.startDateInMilliseconds) / 3600000 }`
-        : '', [Validators.required, Validators.min(1)]);
+        const period = this.formBuilder.control(this.modifyMode ? `${this.currentTable.period }`
+            : '', [Validators.required, Validators.min(1)]);
         const deviceNames = this.formBuilder.control('', [Validators.required]);
         this.routeForm = this.formBuilder.group({
             name,
