@@ -99,7 +99,7 @@ export class TableReportsService {
         await this.tableReportsRepository.update(tableId, tableToUpdate);
         await this.tableReportsRepository.save(tableToUpdate);
 
-        return `Table report with id "${tableId}" was successfully updated.`;
+        return JSON.stringify(`Table report with id "${tableId}" was successfully updated.`);
     }
 
     async deleteTableById(userLogged, tableId) {
@@ -110,6 +110,6 @@ export class TableReportsService {
         }
         await this.tableReportsRepository.delete(tableId);
 
-        return `Table report with id "${tableId}" was successfully deleted.`;
+        return JSON.stringify(`Table report with id "${tableId}" was successfully deleted.`);
     }
 }

@@ -41,7 +41,6 @@ export class ReportsComponent implements OnInit {
     });
   }
   public createRoute() {
-    console.log(this.routeForm.value);
     this.http.post('http://localhost:3000/table-reports', JSON.stringify(this.routeForm.value))
     .subscribe(() => {
         this.notificationService.show('Report added!', 'success');
@@ -56,5 +55,11 @@ export class ReportsComponent implements OnInit {
   public cancel(): void {
     this.createMode = false;
     this.routeForm.reset();
+  }
+
+  public onEdit(event) {
+    return this.http.get('http://localhost:3000/table-reports').subscribe((res: Table[]) => {
+      this.tableReports = res;
+    });
   }
 }

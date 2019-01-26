@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main.component';
 import { ReportsComponent } from './reports/reports.component';
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     MainComponent,
     TableReportComponent,
   ],
-  imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule, ReactiveFormsModule, ],
+  imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule, 
+    ReactiveFormsModule, NgbModule],
   providers: [],
   exports: [MainComponent, MapComponent]
 })

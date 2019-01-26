@@ -6,4 +6,8 @@ table, th, td {
   .cell-hover:hover {
     cursor: pointer;
   }
-  
+  .k-i-close {
+    color: grey; 
+    float: right;
+    margin-right: 1em;
+}

@@ -1,6 +1,7 @@
 <hr>
 
-<h5>{{table.name}}  <small class="text-muted">({{table.startDateInMilliseconds | date :'short'  }} - {{table.endDateInMilliseconds | date :'short'}})</small></h5>
+<h5>{{table.name}}
+    <span class="k-icon k-i-close k-icon-64" (click)="deleteTable()"></span></h5>
 
 <table class="table table-bordered table-hover" style="width:100%">
     <thead class="thead-light">

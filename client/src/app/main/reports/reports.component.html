@@ -2,7 +2,8 @@
 
   <h1 class="display-4">Reports</h1>
   <div class="text-right">
-  <button type="button" class="btn btn-outline-info" (click)="createMode=true">Create new table</button>
+  <button type="button" class="btn btn-outline-info" (click)="createMode=true"
+    [disabled]="createMode">Create new table</button>
 </div>
  
  <div *ngIf="createMode">
@@ -26,7 +27,8 @@
   </form>
 </div>
 
-  <app-table-report *ngFor="let table of this.tableReports" [table]="table">
+  <app-table-report *ngFor="let table of this.tableReports" [table]="table"
+    (edited)="onEdit($event)">
   </app-table-report>
 
 </div>
