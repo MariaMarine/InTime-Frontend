@@ -11,7 +11,7 @@ import { TableReportComponent } from './reports/table-report.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from '@progress/kendo-angular-dropdowns';
-
+import { TabStripModule } from '@progress/kendo-angular-layout';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { MultiSelectModule } from '@progress/kendo-angular-dropdowns';
     TableReportEditComponent,
   ],
   imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule,
-    ReactiveFormsModule, NgbModule, MultiSelectModule],
+    ReactiveFormsModule, NgbModule, MultiSelectModule, TabStripModule],
   providers: [],
   exports: [MainComponent, MapComponent]
 })

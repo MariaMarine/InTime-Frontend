@@ -7,11 +7,15 @@ table, th, td {
     cursor: pointer;
   }
 .k-icon {
-    color: grey; 
+    color:#9ba4ac;
     float: right;
-    margin-right: 1em;
+    margin-right: 0.3em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    font-size: 95%;
 }
 
 .pointer:hover {
   cursor: pointer;
+  color: #332D33;
 }

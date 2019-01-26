@@ -1,14 +1,25 @@
 
-<kendo-splitter style="height: 100vh;">
+<kendo-splitter style="height: 100vh">
   <kendo-splitter-pane [collapsible]="true" size="40%">
     <div class="pane-content">
       <h3>Map component goes here</h3>
       <app-map *ngIf="mapLoaded"></app-map>
     </div>
   </kendo-splitter-pane>
-  <kendo-splitter-pane [collapsible]="true">
+  <kendo-splitter-pane>
     <div class="pane-content">
-      <app-reports></app-reports>
+      <kendo-tabstrip [tabAlignment]="'center'">
+        <kendo-tabstrip-tab [title]="'Multi-point route tables'" [selected]="true">
+          <ng-template kendoTabContent>
+            <app-reports></app-reports>
+          </ng-template>
+        </kendo-tabstrip-tab>
+        <kendo-tabstrip-tab [title]="'Comparison charts'">
+          <ng-template kendoTabContent>
+            <app-reports></app-reports>
+          </ng-template>
+          </kendo-tabstrip-tab>
+      </kendo-tabstrip>
     </div>
   </kendo-splitter-pane>
 </kendo-splitter>

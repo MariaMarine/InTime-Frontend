@@ -1,12 +1,11 @@
-<hr>
 
-<h5>{{table.name}} 
+<h4>{{table.name}} 
     <small class="text-muted">{{table.period}}-hour period</small>
     <span class="k-icon k-i-trash k-icon-64" [ngClass]="{'pointer': !createMode}" 
         (click)="deleteTable()"></span>
     <span class="k-icon k-i-pencil k-icon-64"[ngClass]="{'pointer': !createMode}" 
         (click)="editTable()"></span>
-</h5>
+</h4>
 
 <table class="table table-bordered table-hover" style="width:100%">
     <thead class="thead-light">
