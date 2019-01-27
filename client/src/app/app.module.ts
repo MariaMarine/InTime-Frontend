@@ -14,9 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationModule } from '@progress/kendo-angular-notification';
-import { MainComponent } from './main/main.component';
-
-import { ReportsComponent } from './main/reports/reports.component';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +23,7 @@ import { ReportsComponent } from './main/reports/reports.component';
     ServerErrorComponent,
     LoginComponent,
     NavbarComponent,
+    RegisterComponent
   ],
   imports: [
     HttpClientModule,

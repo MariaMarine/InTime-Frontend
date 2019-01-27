@@ -66,7 +66,8 @@ export class TableReportsService {
 
     async updateTableById(userLogged: User, tableId: string, updateTableReportDTO: UpdateTableReportDTO) {
         const tableToUpdate: TableReport = await this.getTableReportById(tableId);
-        this.confirmCurrentUser(userLogged, tableToUpdate.user);
+
+        // this.confirmCurrentUser(userLogged, tableToUpdate.user);
 
         if (!tableToUpdate) {
             throw new Error(`Action not permitted! You have no table with id "${tableId}".`);

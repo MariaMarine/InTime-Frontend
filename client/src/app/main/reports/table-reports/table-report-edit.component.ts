@@ -35,7 +35,7 @@ import { Table } from 'src/app/models/tableModel';
             : '', [Validators.required]);
         const period = this.formBuilder.control(this.modifyMode ? `${this.currentTable.period }`
             : '', [Validators.required, Validators.min(1)]);
-        const deviceNames = this.formBuilder.control([...this.value], [Validators.required]);
+        const deviceNames = this.formBuilder.control([...this.value], [Validators.required, Validators.minLength(2)]);
         this.routeForm = this.formBuilder.group({
             name,
             period,
