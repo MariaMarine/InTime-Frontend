@@ -1,5 +1,5 @@
 
-<h4>{{table.name}} 
+<h4>{{table.name | sentenceCase }} 
     <small class="text-muted">{{table.period}}-hour period</small>
     <span class="k-icon k-i-arrow-chevron-down k-icon-64 k-icon-nofloat" 
         [ngClass]="{'pointer': !createMode}" (click)="toggled=!toggled"></span>

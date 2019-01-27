@@ -1,3 +1,4 @@
+import { SentenceCasePipe } from './../pipes/sentence-case.pipe';
 import { TableReportEditComponent } from './reports/table-reports/table-report-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +21,7 @@ import { TabStripModule } from '@progress/kendo-angular-layout';
     MainComponent,
     TableReportComponent,
     TableReportEditComponent,
+    SentenceCasePipe,
   ],
   imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule,
     ReactiveFormsModule, NgbModule, MultiSelectModule, TabStripModule],
