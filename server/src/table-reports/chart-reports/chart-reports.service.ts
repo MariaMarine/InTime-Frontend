@@ -42,23 +42,10 @@ export class ChartReportsService {
             });
             await this.startDateRepository.create([...startDates]);
             const result = await this.startDateRepository.save([...startDates]);
-            console.log(result);
-/*
-            chartReportDTO.startDates.forEach(async date => {
-
-                const startDate = new StartDate();
-                startDate.dateInMilliseconds = date;
-
-                await this.startDateRepository.create(startDate);
-                const result = await this.startDateRepository.save(startDate);
-                console.log(result);
-            });
-            */
             chart.startDates = result;
             await this.chartRepository.create(chart);
-            await this.chartRepository.save(chart);
+            const result2 = await this.chartRepository.save(chart);
         }
-        const chartFound = await this.chartRepository.findOne({where: {chart}});
         return 'new chart created';
     }
 
