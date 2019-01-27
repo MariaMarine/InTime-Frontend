@@ -1,7 +1,7 @@
 import { ChartReportDTO } from './../models/table-report/chart-report/chart-report.dto';
 import { ChartReportsService } from './chart-reports/chart-reports.service';
 import { AuthGuard } from '@nestjs/passport';
-import { Controller, Get, UseGuards, Post, Request, Body, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Get, UseGuards, Post, Request, Body, Put, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { TableReportsService } from './table-reports.service';
 import { TableReport } from '../data/entities/table-report.entity';
 import { CreateTableReportDTO } from '../models/table-report/create-table-report.dto';
@@ -10,7 +10,7 @@ import { ApiService } from './api.service';
 import { ChartReport } from 'src/data/entities/chart-report.entity';
 import { UpdateChartReportDTO } from '../models/table-report/chart-report/update-chart-report.dto';
 
-@Controller('table-reports')
+@Controller()
 export class TableReportsController {
   constructor(
     private readonly tableReportsService: TableReportsService,
@@ -18,45 +18,49 @@ export class TableReportsController {
     private readonly apiService: ApiService,
   ) { }
 
-  @Get()
+  @Get('table-reports')
   @UseGuards(AuthGuard())
   async allTableReports(@Request() req): Promise<TableReport[]> {
     return await this.tableReportsService.getTableReports(req);
   }
 
-  @Post()
+  @Post('table-reports')
   @UseGuards(AuthGuard())
   async create(@Request() req, @Body() tableReportDTO: CreateTableReportDTO) {
     const tableReport = await this.tableReportsService.createTableReport(tableReportDTO, req.user);
     return await this.apiService.tableReport(tableReport);
   }
 
-  @Put(':id')
+  @Put('table-reports/:id')
   @UseGuards(AuthGuard())
   async updateTableById(@Request() req, @Param('id') tableReportId, @Body() updateTableReportDTO: UpdateTableReportDTO): Promise<string> {
     return await this.tableReportsService.updateTableById(req.user, tableReportId, updateTableReportDTO);
   }
 
-  @Delete(':id')
+  @Delete('table-reports/:id')
   @UseGuards(AuthGuard())
   async deleteTableById(@Request() req, @Param('id') tableReportId): Promise<string> {
     return await this.tableReportsService.deleteTableById(req.user, tableReportId);
   }
 
-  @Get(':tableReportId/chart-reports')
+  @Get('chart-reports')
   @UseGuards(AuthGuard())
-  async allChartReports(@Param('tableReportId') tableReportId: string): Promise<ChartReport[]> {
-    const tableReport = await this.tableReportsService.getTableReportById(tableReportId);
-    return tableReport.chartReports;
+  async allChartReports(@Request() req): Promise<ChartReport[]> {
+    return [];
   }
 
-  @Post(':tableReportId/chart-reports')
+  @Post('chart-reports')
   @UseGuards(AuthGuard())
-  async createChartReport(@Param('tableReportId') tableReportId: string, @Body() chartReportDTO: ChartReportDTO): Promise<string> {
-    return await this.chartReportsService.createChartReport(tableReportId, chartReportDTO);
+  async createChartReport(@Request() req, @Body() chartReportDTO: ChartReportDTO): Promise<string> {
+    try {
+      await this.chartReportsService.createChartReport (chartReportDTO, req.user);
+      return JSON.stringify(`Chart created`);
+  } catch (error){
+    throw new HttpException(error.message, HttpStatus.CONFLICT);
   }
+}
 
-  @Put(':tableReportId/chart-reports/:chartReportId')
+  @Put('chart-reports/:chartReportId')
   @UseGuards(AuthGuard())
   async updateChartReportById(
     @Request() req,
@@ -65,7 +69,7 @@ export class TableReportsController {
     return await this.chartReportsService.updateChartReport(req.user, params.tableReportId, params.chartReportId, updateChartReportDTO);
   }
 
-  @Delete(':tableReportId/chart-reports/:chartReportId')
+  @Delete('chart-reports/:chartReportId')
   @UseGuards(AuthGuard())
   async deleteChartReportById(
     @Request() req,

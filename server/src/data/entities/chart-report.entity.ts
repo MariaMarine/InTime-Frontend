@@ -1,7 +1,8 @@
-import { Column, PrimaryGeneratedColumn, Entity, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
+import { Column, PrimaryGeneratedColumn, Entity, ManyToMany, JoinTable, ManyToOne, OneToMany } from 'typeorm';
 import { IsDate } from 'class-validator';
 import { StartDate } from './start-date.entity';
 import { TableReport } from './table-report.entity';
+import { User } from './user.entity';
 
 @Entity({ name: 'chart_reports' })
 export class ChartReport {
@@ -10,16 +11,17 @@ export class ChartReport {
 
     @Column()
     name: string;
+    @Column()
+    origin: string;
+    @Column()
+    destination: string;
 
     @Column('bigint')
     periodInMilliseconds: number;
 
-    @ManyToOne(type => TableReport, tableReport => tableReport.chartReports, {
-        onDelete: 'CASCADE',
-    })
-    tableReport: TableReport;
+    @ManyToOne(type => User, user => user.chartReports)
+    user: User;
 
-    @JoinTable({ name: 'chart_reports_start_dates' })
-    @ManyToMany(type => StartDate, startDate => startDate.chartReports, {eager: true})
+    @OneToMany(type => StartDate, startDate => startDate.chartReport, {eager: true})
     startDates: StartDate[];
 }

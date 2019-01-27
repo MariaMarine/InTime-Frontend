@@ -106,6 +106,7 @@ export class TableReportsService {
 
     async deleteTableById(userLogged, tableId) {
         const tableToDelete: TableReport = await this.tableReportsRepository.findOne({ where: { id: tableId, user: userLogged } });
+        console.log(tableToDelete);
 
         if (!tableToDelete) {
             throw new BadRequestException('Action not permitted! This user has no such table.');

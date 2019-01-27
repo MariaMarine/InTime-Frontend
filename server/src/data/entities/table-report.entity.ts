@@ -34,11 +34,4 @@ export class TableReport {
     @ManyToOne(type => User, user => user.tableReports)
     user: User;
 
-    @OneToMany(type => ChartReport, chartReport => chartReport.tableReport, {
-        nullable: true,
-        eager: true,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-    })
-    chartReports?: ChartReport[];
 }

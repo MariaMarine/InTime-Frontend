@@ -1,4 +1,4 @@
-import { Column, PrimaryGeneratedColumn, Entity, ManyToMany } from 'typeorm';
+import { Column, PrimaryGeneratedColumn, Entity, ManyToMany, ManyToOne } from 'typeorm';
 import { IsDate, IsNumber } from 'class-validator';
 import { ChartReport } from './chart-report.entity';
 
@@ -7,10 +7,10 @@ export class StartDate {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('bigint', {default: null})
+    @Column('bigint')
     @IsNumber()
     dateInMilliseconds: number;
 
-    @ManyToMany(type => ChartReport, chartReport => chartReport.startDates)
-    chartReports: ChartReport[];
+    @ManyToOne(type => ChartReport, chartReport => chartReport.startDates)
+    chartReport: ChartReport;
 }

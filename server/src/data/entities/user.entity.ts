@@ -1,3 +1,4 @@
+import { ChartReport } from './chart-report.entity';
 import { Column, PrimaryGeneratedColumn, Entity, ManyToMany, JoinTable, ManyToOne, OneToMany } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import { Device } from './device.entity';
@@ -24,6 +25,9 @@ export class User {
 
     @OneToMany(type => TableReport, tableReport => tableReport.user)
     tableReports: TableReport[];
+
+    @OneToMany(type => ChartReport, chartReport => chartReport.user)
+    chartReports: ChartReport[];
 
     @ManyToOne(type => User, admin => admin.users)
     adminUser: User;
