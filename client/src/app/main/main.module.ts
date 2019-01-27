@@ -1,3 +1,4 @@
+import { ChartsComponent } from './reports/chart-reports/charts.component';
 import { SentenceCasePipe } from './../pipes/sentence-case.pipe';
 import { TableReportEditComponent } from './reports/table-reports/table-report-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from '@progress/kendo-angular-dropdowns';
 import { TabStripModule } from '@progress/kendo-angular-layout';
+import { ChartReportComponent } from './reports/chart-reports/chart-report.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { TabStripModule } from '@progress/kendo-angular-layout';
     TableReportComponent,
     TableReportEditComponent,
     SentenceCasePipe,
+    ChartsComponent,
+    ChartReportComponent
   ],
   imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule,
     ReactiveFormsModule, NgbModule, MultiSelectModule, TabStripModule],

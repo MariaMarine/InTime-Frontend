@@ -16,6 +16,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationModule } from '@progress/kendo-angular-notification';
 import { RegisterComponent } from './register/register.component';
+import { ChartsModule } from '@progress/kendo-angular-charts';
+import 'hammerjs';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +39,7 @@ import { RegisterComponent } from './register/register.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NotificationModule,
+    ChartsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

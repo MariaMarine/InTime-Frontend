@@ -1,0 +1,20 @@
+
+<h4>{{chart.name | sentenceCase }} 
+    <small class="text-muted">{{chart.origin.name}} - {{chart.destination.name}} </small>
+    <span class="k-icon k-i-arrow-chevron-down k-icon-64 k-icon-nofloat" 
+        [ngClass]="{'pointer': !createMode}" (click)="toggled=!toggled"></span>
+    <span class="k-icon k-i-trash k-icon-64 k-icon-right" [ngClass]="{'pointer': !createMode}" 
+        (click)="deleteTable()"></span>
+    <span class="k-icon k-i-pencil k-icon-64 k-icon-right"[ngClass]="{'pointer': !createMode}" 
+        (click)="editTable()"></span>
+</h4>
+<div>
+    <p *ngFor="let date of chart.startDates"> {{date.dateInMilliseconds | date : 'short'}}
+        - {{(+date.dateInMilliseconds + (+chart.periodInMilliseconds)) | date : 'short'}} :
+        {{ (chartData) ? extractValues(chartData[date.dateInMilliseconds]) : null}}
+    </p>
+</div>
+
+
+   
+

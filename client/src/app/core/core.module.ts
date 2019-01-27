@@ -10,6 +10,7 @@ import { NavbarService } from './navbar.service';
 import { AuthRouteActivatorService } from './guards/auth-route-activator.service';
 import { AdminRouteActivatorService } from './guards/admin-route-activator.service';
 import { ReportsResolverService } from './reports-resolver.service';
+import { ChartsResolverService } from './charts-resolver.service';
 
 @NgModule({
   providers: [
@@ -24,6 +25,7 @@ import { ReportsResolverService } from './reports-resolver.service';
     JwtService,
     ReportsResolverService,
     DeviceResolverService,
+    ChartsResolverService
   ]
 })
 export class CoreModule {

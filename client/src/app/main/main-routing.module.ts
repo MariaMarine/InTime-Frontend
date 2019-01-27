@@ -1,3 +1,4 @@
+import { ChartsResolverService } from './../core/charts-resolver.service';
 import { DeviceResolverService } from './../core/device-resolver.service';
 // import { TableReportsResolverService } from './reports/table-reports-resolver.service';
 import { ReportsResolverService } from '../core/reports-resolver.service';
@@ -13,6 +14,7 @@ const routes: Routes = [
     component: MainComponent,
     resolve: { reports: ReportsResolverService,
       devices: DeviceResolverService,
+      charts: ChartsResolverService,
     }
   },
 ];

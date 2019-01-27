@@ -1,3 +1,4 @@
+import { Chart } from './../../../models/chartModel';
 import { Device } from 'src/app/models/deviceModel';
 import { Component, OnInit } from '@angular/core';
 import { RequesterService } from 'src/app/core/reqester.service';
@@ -7,19 +8,19 @@ import { Table } from 'src/app/models/tableModel';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-reports',
-  templateUrl: './reports.component.html'
+  selector: 'app-charts',
+  templateUrl: './charts.component.html'
 })
-export class ReportsComponent implements OnInit {
+export class ChartsComponent implements OnInit {
 
   public devices: Device [];
-  public tableReports: Table[];
+  public chartReports: Chart[];
   public createMode: boolean;
   public routeForm: FormGroup;
   public modifyMode: boolean;
   public currentTable: Table;
-  public createButtonText = 'Create new table';
-  public modifyButtonText = 'Modify table';
+  public createButtonText = 'Create new chart';
+  public modifyButtonText = 'Modify chart';
 
   public constructor(
     private readonly route: ActivatedRoute,
@@ -29,14 +30,14 @@ export class ReportsComponent implements OnInit {
   public ngOnInit(): void {
     this.createMode = false;
     this.modifyMode = false;
-    this.tableReports = this.route.snapshot.data['reports'];
+    this.chartReports = this.route.snapshot.data['charts'];
   }
   public onEdit(edited) {
     this.createMode = false;
     this.modifyMode = false;
     if (edited) {
-    return this.http.get('http://localhost:3000/table-reports').subscribe((res: Table[]) => {
-      this.tableReports = res;
+    return this.http.get('http://localhost:3000/chart-reports').subscribe((res: Chart[]) => {
+      this.chartReports = res;
       });
     }
   }

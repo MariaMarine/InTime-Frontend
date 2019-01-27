@@ -1,0 +1,30 @@
+
+table, th, td {
+    text-align: center;
+  }
+
+.cell-hover:hover {
+    cursor: pointer;
+  }
+.k-icon-right {
+    color:#9ba4ac;
+    float: right;
+    margin-right: 0.3em;
+    margin-left: 0.2em;
+    margin-top: 0.3em;
+    margin-bottom: 0.2em;
+    font-size: 80%;
+}
+
+.k-icon-nofloat {
+    color:#9ba4ac;
+    margin-right: 0.3em;
+    margin-left: 0.2em;
+    margin-top: 0.3em;
+    margin-bottom: 0.2em;
+    font-size: 80%;
+}
+.pointer:hover {
+  cursor: pointer;
+  color: #332D33;
+}

@@ -46,7 +46,7 @@ export class TableReportsController {
   @Get('chart-reports')
   @UseGuards(AuthGuard())
   async allChartReports(@Request() req): Promise<ChartReport[]> {
-    return [];
+    return await this.chartReportsService.getChartReports(req);
   }
 
   @Post('chart-reports')

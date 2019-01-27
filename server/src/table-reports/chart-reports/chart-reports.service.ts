@@ -21,6 +21,10 @@ export class ChartReportsService {
         private readonly startDateRepository: Repository<StartDate>,
         private readonly tableReportsService: TableReportsService,
     ) { }
+
+    async getChartReports(req): Promise<ChartReport[]> {
+        return await this.chartRepository.find({ where: { user: req.user }});
+    }
     async createChartReport(chartReportDTO: ChartReportDTO, user: User): Promise<string> {
         const chart = new ChartReport();
         const reports = await this.chartRepository.find({where: { user }});
