@@ -23,11 +23,13 @@ export class TableReportComponent implements OnInit {
   public tableData: any;
   public currentRow: string;
   public currentCol: string;
+  public toggled: boolean;
 
   public constructor(private readonly requester: RequesterService) {}
 
 
   ngOnInit() {
+    this.toggled = false;
     const devices: string = this.table.devices.map(x => x.name).join(',');
     const endDate: number = Date.now();
     const startDate: number = endDate - (this.table.period * 3600 * 1000);

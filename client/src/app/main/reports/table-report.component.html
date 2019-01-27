@@ -1,13 +1,15 @@
 
 <h4>{{table.name}} 
     <small class="text-muted">{{table.period}}-hour period</small>
-    <span class="k-icon k-i-trash k-icon-64" [ngClass]="{'pointer': !createMode}" 
+    <span class="k-icon k-i-arrow-chevron-down k-icon-64 k-icon-nofloat" 
+        [ngClass]="{'pointer': !createMode}" (click)="toggled=!toggled"></span>
+    <span class="k-icon k-i-trash k-icon-64 k-icon-right" [ngClass]="{'pointer': !createMode}" 
         (click)="deleteTable()"></span>
-    <span class="k-icon k-i-pencil k-icon-64"[ngClass]="{'pointer': !createMode}" 
+    <span class="k-icon k-i-pencil k-icon-64 k-icon-right"[ngClass]="{'pointer': !createMode}" 
         (click)="editTable()"></span>
 </h4>
 
-<table class="table table-bordered table-hover" style="width:100%">
+<table *ngIf="toggled" class="table table-bordered table-hover" style="width:100%">
     <thead class="thead-light">
         <tr>
             <th></th>
@@ -20,7 +22,7 @@
             <td class="cell-hover" *ngFor= "let device of table.devices" >{{setRowCol(device.name, row.name) }} {{ (tableData !== undefined) ? ((tableData )[currentCol])[currentRow] : null }}</td>
         </tr>
     </tbody>
-      </table>
+</table>
 
 
    

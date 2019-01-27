@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './errors/not-found.component';
 import { AuthRouteActivatorService } from './core/guards/auth-route-activator.service';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -11,6 +12,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'main', loadChildren: './main/main.module#MainModule', canActivate: [AuthRouteActivatorService] },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
+
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
 
 @NgModule({
