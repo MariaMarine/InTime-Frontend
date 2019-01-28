@@ -7,8 +7,9 @@
         <kendo-dropdownlist
         isRequired="true"
         formControlName="origin"
+        (selectionChange)="originChange($event)"
+        [defaultItem]="modifyMode ? currentChart.origin.name : null"
         [data]="devices"
-        [defaultItem]="{name: 'Select origin', value: null}"
         [textField]="'name'"
         [valueField]="''"
     > 
@@ -17,15 +18,16 @@
         <kendo-dropdownlist
         isRequired="true"
         formControlName="destination"
+        (selectionChange)="destinationChange($event)"
         [data]="devices"
-        [defaultItem]="{name: 'Select destination', value: null}"
+        [defaultItem]="modifyMode ? currentChart.destination.name : null"
         [textField]="'name'"
         [valueField]="''"
     >
     </kendo-dropdownlist> </span>
     <p></p>
    
-    <button type="submit" class="btn btn-info" > Save </button>
+    <button [disabled]="this.routeForm.invalid" type="submit" class="btn btn-info" > Save </button>
     <button type="button" class="btn btn-default" (click)="this.cancel()">Cancel</button>
 </form>
 <br>

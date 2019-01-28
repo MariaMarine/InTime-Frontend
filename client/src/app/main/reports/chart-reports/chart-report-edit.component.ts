@@ -22,6 +22,9 @@ import { Chart } from 'src/app/models/chartModel';
     @Input() public modifyMode: boolean;
     public value: any [];
 
+    public originUpdate: Device;
+    public destinationUpdate: Device;
+
     @Input() public currentChart: Chart;
 
     constructor(
@@ -31,18 +34,18 @@ import { Chart } from 'src/app/models/chartModel';
         private readonly http: RequesterService,
     ) {}
     ngOnInit(): void {
-
         this.devices = this.route.snapshot.data['devices'];
+
         this.value = this.modifyMode ? this.currentChart.startDates.map (date => date.dateInMilliseconds) : [];
         const name = this.formBuilder.control(this.modifyMode ? `${this.currentChart.name}`
+            : '', [Validators.required, Validators.minLength(3)]);
+        const origin = this.formBuilder.control(this.modifyMode ? this.currentChart.origin
             : '', [Validators.required]);
-        const origin = this.formBuilder.control(this.modifyMode ? `${this.currentChart.origin}`
-        : '', [Validators.required]);
-        const destination = this.formBuilder.control(this.modifyMode ? `${this.currentChart.destination}`
-        : '', [Validators.required]);
+        const destination = this.formBuilder.control(this.modifyMode ? this.currentChart.destination
+            : '', [Validators.required]);
         const periodInMilliseconds = this.formBuilder.control(this.modifyMode ? `${this.currentChart.periodInMilliseconds }`
-            : '', [Validators.required, Validators.min(1)]);
-        const startDates = this.formBuilder.control([...this.value], [Validators.required, Validators.minLength(2)]);
+            : '', []);
+        const startDates = this.formBuilder.control([...this.value], []);
         this.routeForm = this.formBuilder.group({
             name,
             origin,
@@ -55,6 +58,15 @@ import { Chart } from 'src/app/models/chartModel';
     public createRoute() {
 
         console.log(this.routeForm.value);
+        if (this.originUpdate) {
+            this.routeForm.value.origin = this.originUpdate;
+        }
+        if (this.destinationUpdate) {
+            this.routeForm.value.destination = this.destinationUpdate;
+        }
+        if (this.routeForm.value.destination.name === this.routeForm.value.origin.name) {
+            this.notificationService.show(`Origin can't be the same as destination!`, 'error');
+        } else {
         this.routeForm.value.periodInMilliseconds = 16000000;
         this.routeForm.value.startDates = [ 1548583000000,  1548583006000 ];
         const action = this.modifyMode ? `updated` : `created`;
@@ -70,9 +82,15 @@ import { Chart } from 'src/app/models/chartModel';
             (err: HttpErrorResponse) => {
                 this.notificationService.show(`Report failed to be ${action}!`, 'error');
             });
-
+        }
       }
-
+    public originChange(event) {
+        console.log(event);
+          this.originUpdate = event;
+      }
+    public destinationChange(event) {
+        this.destinationUpdate = event;
+    }
     public cancel(): void {
         this.editComplete = false;
         this.routeForm.reset();
