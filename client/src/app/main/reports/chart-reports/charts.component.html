@@ -2,13 +2,13 @@
   <h1 class="display-4">Charts</h1>
   <div class="text-right">
   <button type="button" class="btn btn-outline-info" (click)="createMode=true"
-    [disabled]="createMode">{{ modifyMode ? modifyButtonText : createButtonText }}</button>
+    [disabled]="createMode">{{ modifyMode ? 'Modify chart' : 'Create new chart'  }}</button>
   </div>
 <br>
-<!---
-<app-table-report-edit *ngIf="createMode" (edited)="onEdit($event)"
-[modifyMode]="modifyMode" [currentTable]="currentTable"></app-table-report-edit>
--->
+
+<app-chart-report-edit *ngIf="createMode" (edited)="onEdit($event)"
+[modifyMode]="modifyMode" [currentChart]="currentChart"></app-chart-report-edit>
+
 <app-chart-report *ngFor="let chart of this.chartReports" [chart]="chart" 
 [createMode]="createMode" (edited)="onEdit($event)" (modifyTable)="modify($event)">
 </app-chart-report>

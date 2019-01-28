@@ -18,9 +18,7 @@ export class ChartsComponent implements OnInit {
   public createMode: boolean;
   public routeForm: FormGroup;
   public modifyMode: boolean;
-  public currentTable: Table;
-  public createButtonText = 'Create new chart';
-  public modifyButtonText = 'Modify chart';
+  public currentChart: Chart;
 
   public constructor(
     private readonly route: ActivatedRoute,
@@ -45,6 +43,6 @@ export class ChartsComponent implements OnInit {
   public modify(table) {
     this.modifyMode = true;
     this.createMode = true;
-    this.currentTable = table;
+    this.currentChart = table;
   }
 }

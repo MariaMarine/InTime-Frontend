@@ -1,3 +1,4 @@
+import { ChartReportEditComponent } from './reports/chart-reports/chart-report-edit.component';
 import { ChartsComponent } from './reports/chart-reports/charts.component';
 import { SentenceCasePipe } from './../pipes/sentence-case.pipe';
 import { TableReportEditComponent } from './reports/table-reports/table-report-edit.component';
@@ -12,7 +13,7 @@ import { SplitterModule } from '@progress/kendo-angular-layout';
 import { TableReportComponent } from './reports/table-reports/table-report.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from '@progress/kendo-angular-dropdowns';
+import { MultiSelectModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { TabStripModule } from '@progress/kendo-angular-layout';
 import { ChartReportComponent } from './reports/chart-reports/chart-report.component';
 import { ChartModule } from '@progress/kendo-angular-charts';
@@ -27,9 +28,10 @@ import 'hammerjs';
     TableReportEditComponent,
     SentenceCasePipe,
     ChartsComponent,
-    ChartReportComponent
+    ChartReportComponent,
+    ChartReportEditComponent
   ],
-  imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule,
+  imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule, DropDownsModule,
     ReactiveFormsModule, NgbModule, MultiSelectModule, TabStripModule, ChartModule],
   providers: [],
   exports: [MainComponent, MapComponent]

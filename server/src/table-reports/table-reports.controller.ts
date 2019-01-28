@@ -64,9 +64,12 @@ export class TableReportsController {
   @UseGuards(AuthGuard())
   async updateChartReportById(
     @Request() req,
-    @Param() params: any,
-    @Body() updateChartReportDTO: UpdateChartReportDTO): Promise<string> {
-    return await this.chartReportsService.updateChartReport(req.user, params.tableReportId, params.chartReportId, updateChartReportDTO);
+    @Body() updateChartReportDTO: ChartReportDTO): Promise<string> {
+      try {
+        return await this.chartReportsService.updateChartReport(req.user, updateChartReportDTO);
+    } catch (error){
+      throw new HttpException(error.message, HttpStatus.CONFLICT);
+    }
   }
 
   @Delete('chart-reports/:chartReportId')

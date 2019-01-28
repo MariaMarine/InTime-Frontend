@@ -1,0 +1,31 @@
+<form [formGroup]="routeForm" (ngSubmit)="this.createRoute()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input formControlName="name" required id="name" type="text" class="form-control" placeholder="Name..." />
+    </div>
+    <p>From:
+        <kendo-dropdownlist
+        isRequired="true"
+        formControlName="origin"
+        [data]="devices"
+        [defaultItem]="{name: 'Select origin', value: null}"
+        [textField]="'name'"
+        [valueField]="''"
+    > 
+    </kendo-dropdownlist>
+    <span class ="rightselect">To:
+        <kendo-dropdownlist
+        isRequired="true"
+        formControlName="destination"
+        [data]="devices"
+        [defaultItem]="{name: 'Select destination', value: null}"
+        [textField]="'name'"
+        [valueField]="''"
+    >
+    </kendo-dropdownlist> </span>
+    <p></p>
+   
+    <button type="submit" class="btn btn-info" > Save </button>
+    <button type="button" class="btn btn-default" (click)="this.cancel()">Cancel</button>
+</form>
+<br>

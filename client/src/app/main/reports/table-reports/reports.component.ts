@@ -18,8 +18,6 @@ export class ReportsComponent implements OnInit {
   public routeForm: FormGroup;
   public modifyMode: boolean;
   public currentTable: Table;
-  public createButtonText = 'Create new table';
-  public modifyButtonText = 'Modify table';
 
   public constructor(
     private readonly route: ActivatedRoute,
