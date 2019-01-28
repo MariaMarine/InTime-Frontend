@@ -33,7 +33,7 @@ export class ChartReportComponent implements OnInit {
 
 
   ngOnInit() {
-    this.toggled = false;
+    this.toggled = true;
     const origin = this.chart.origin.name;
     const destination = this.chart.destination.name;
     const period = this.chart.periodInMilliseconds;
@@ -44,8 +44,9 @@ export class ChartReportComponent implements OnInit {
 
 
   public deleteTable() {
+    console.log(this.chart.id);
     if (!this.createMode) {
-    this.requester.delete(`http://localhost:3000/table-reports/${this.chart.id}`)
+    this.requester.delete(`http://localhost:3000/chart-reports/${this.chart.id}`)
       .subscribe(res => {
         this.editComplete = true;
         this.edited.emit(this.editComplete);

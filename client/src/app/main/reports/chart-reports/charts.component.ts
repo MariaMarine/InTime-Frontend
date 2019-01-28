@@ -1,6 +1,6 @@
 import { Chart } from './../../../models/chartModel';
 import { Device } from 'src/app/models/deviceModel';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { RequesterService } from 'src/app/core/reqester.service';
 
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +20,9 @@ export class ChartsComponent implements OnInit {
   public modifyMode: boolean;
   public currentChart: Chart;
 
+  @Input() chartsUpdate: boolean;
+  @Output() updateEvent = new EventEmitter<boolean>();
+
   public constructor(
     private readonly route: ActivatedRoute,
     private readonly http: RequesterService,
@@ -28,15 +31,19 @@ export class ChartsComponent implements OnInit {
   public ngOnInit(): void {
     this.createMode = false;
     this.modifyMode = false;
-    this.chartReports = this.route.snapshot.data['charts'];
+    if (this.chartsUpdate) {
+      this.chartsUpdate = false;
+      this.refresh();
+    } else {
+      this.chartReports = this.route.snapshot.data['charts'];
+    }
   }
   public onEdit(edited) {
     this.createMode = false;
     this.modifyMode = false;
     if (edited) {
-    return this.http.get('http://localhost:3000/chart-reports').subscribe((res: Chart[]) => {
-      this.chartReports = res;
-      });
+      this.updateEvent.emit(true);
+      this.refresh();
     }
   }
 
@@ -44,5 +51,12 @@ export class ChartsComponent implements OnInit {
     this.modifyMode = true;
     this.createMode = true;
     this.currentChart = table;
+  }
+
+  private refresh() {
+    return this.http.get('http://localhost:3000/chart-reports')
+      .subscribe((res: Chart[]) => {
+      this.chartReports = res;
+    });
   }
 }

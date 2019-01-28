@@ -35,7 +35,6 @@ import { Chart } from 'src/app/models/chartModel';
     ) {}
     ngOnInit(): void {
         this.devices = this.route.snapshot.data['devices'];
-        console.log(this.currentChart);
         this.value = this.modifyMode ? this.currentChart.startDates.map (date => date.dateInMilliseconds) : [];
         const name = this.formBuilder.control(this.modifyMode ? `${this.currentChart.name}`
             : '', [Validators.required, Validators.minLength(3)]);

@@ -8,7 +8,7 @@
     <span class="k-icon k-i-pencil k-icon-64 k-icon-right"[ngClass]="{'pointer': !createMode}" 
         (click)="editTable()"></span>
 </h4>
-<kendo-chart 
+<kendo-chart *ngIf="toggled"
 [transitions]="false">
     <kendo-chart-category-axis *ngIf="chartData">
         <kendo-chart-category-axis-item

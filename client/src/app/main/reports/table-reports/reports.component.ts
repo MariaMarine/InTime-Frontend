@@ -1,5 +1,5 @@
 import { Device } from 'src/app/models/deviceModel';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { RequesterService } from 'src/app/core/reqester.service';
 
 import { ActivatedRoute } from '@angular/router';
@@ -19,6 +19,9 @@ export class ReportsComponent implements OnInit {
   public modifyMode: boolean;
   public currentTable: Table;
 
+@Input() reportsUpdate: boolean;
+@Output() updateEvent = new EventEmitter<boolean>();
+
   public constructor(
     private readonly route: ActivatedRoute,
     private readonly http: RequesterService,
@@ -27,21 +30,32 @@ export class ReportsComponent implements OnInit {
   public ngOnInit(): void {
     this.createMode = false;
     this.modifyMode = false;
-    this.tableReports = this.route.snapshot.data['reports'];
+    if (this.reportsUpdate) {
+      this.reportsUpdate = false;
+      this.refresh();
+    } else {
+      this.tableReports = this.route.snapshot.data['reports'];
+    }
   }
   public onEdit(edited) {
+
     this.createMode = false;
     this.modifyMode = false;
     if (edited) {
-    return this.http.get('http://localhost:3000/table-reports').subscribe((res: Table[]) => {
-      this.tableReports = res;
-      });
+      this.updateEvent.emit(true);
+      this.refresh();
     }
   }
-
   public modify(table) {
     this.modifyMode = true;
     this.createMode = true;
     this.currentTable = table;
+  }
+
+  private refresh() {
+    return this.http.get('http://localhost:3000/table-reports')
+      .subscribe((res: Table[]) => {
+        this.tableReports = res;
+      });
   }
 }

@@ -29,7 +29,7 @@ export class TableReportComponent implements OnInit {
 
 
   ngOnInit() {
-    this.toggled = false;
+    this.toggled = true;
     const devices: string = this.table.devices.map(x => x.name).join(',');
     const endDate: number = Date.now();
     const startDate: number = endDate - (this.table.period * 3600 * 1000);
