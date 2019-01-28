@@ -1,11 +1,3 @@
-
-table, th, td {
-    text-align: center;
-  }
-
-.cell-hover:hover {
-    cursor: pointer;
-  }
 .k-icon-right {
     color:#9ba4ac;
     float: right;

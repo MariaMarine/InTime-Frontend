@@ -53,20 +53,14 @@ export class ChartReportsService {
         return 'new chart created';
     }
 
-    async updateChartReport(user: User, tableReportId: string, chartReportId: string, updateChartReportDTO: UpdateChartReportDTO): Promise<string> {
-        const table: TableReport = await this.tableReportsService.getTableReportById(tableReportId);
+    async updateChartReport(user: User, updateChartReportDTO: ChartReportDTO): Promise<string> {
 
-        if (!table) {
-            throw new Error(`No table report with id "${tableReportId}" found in database.`);
-        }
-
-        // this.tableReportsService.confirmCurrentUser(user, table.user);
-
-        const chartToUpdate: ChartReport = await this.chartRepository.findOne({ where: { id: chartReportId } });
-
+        const chartToUpdate: ChartReport = await this.chartRepository.findOne({ where: { updateChartReportDTO } });
+        console.log(chartToUpdate);
         if (!chartToUpdate) {
-            throw new Error(`Action not permitted! You have no chart with id "${chartReportId}".`);
+            throw new Error(`Chart not found!`);
         }
+        /*
         let dates: StartDate[];
         if (updateChartReportDTO.startDates.length) {
             dates = await Promise.all(updateChartReportDTO.startDates.map(async (number) => {
@@ -82,16 +76,18 @@ export class ChartReportsService {
                 return dateFound;
             }));
         }
-
+        */
+        chartToUpdate.origin = updateChartReportDTO.origin;
+        chartToUpdate.destination = updateChartReportDTO.destination;
         chartToUpdate.name = updateChartReportDTO.name;
         chartToUpdate.periodInMilliseconds = updateChartReportDTO.periodInMilliseconds;
-        chartToUpdate.startDates = dates;
+        // chartToUpdate.startDates = updateChartReportDTO.startDates;
         // console.log(chartToUpdate);
 
         await this.chartRepository.create(chartToUpdate);
         await this.chartRepository.save(chartToUpdate);
 
-        return `Chart table report with id "${chartReportId}" was successfully updated.`;
+        return JSON.stringify(`Chart table report successfully updated.`);
     }
 
     async deleteChartReportById(user: User, tableReportId: string, chartReportId: string): Promise<string> {

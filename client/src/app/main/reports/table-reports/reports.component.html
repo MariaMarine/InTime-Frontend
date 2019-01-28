@@ -2,7 +2,7 @@
   <h1 class="display-4">Reports</h1>
   <div class="text-right">
   <button type="button" class="btn btn-outline-info" (click)="createMode=true"
-    [disabled]="createMode">{{ modifyMode ? modifyButtonText : createButtonText }}</button>
+    [disabled]="createMode">{{ modifyMode ? 'Modify table' : 'Create new table' }}</button>
   </div>
 <br>
 <app-table-report-edit *ngIf="createMode" (edited)="onEdit($event)"
