@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ServerErrorComponent } from './errors/server-error.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'main', loadChildren: './main/main.module#MainModule', canActivate: [AuthRouteActivatorService] },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthRouteActivatorService] },
 
   { path: 'not-found', component: NotFoundComponent },
   { path: 'error', component: ServerErrorComponent },

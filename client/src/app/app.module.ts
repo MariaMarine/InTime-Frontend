@@ -1,3 +1,4 @@
+import { ProfileComponent } from './profile/profile.component';
 import { ServerErrorInterceptor } from './interceptors/server-error-interceptor.service';
 import { AuthInterceptor } from './interceptors/auth-interceptor.service';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -28,8 +29,10 @@ import 'hammerjs';
     ServerErrorComponent,
     LoginComponent,
     NavbarComponent,
-    RegisterComponent
-  ],
+    RegisterComponent,
+    ProfileComponent,
+  ]
+  ,
   imports: [
     HttpClientModule,
     BrowserModule,
