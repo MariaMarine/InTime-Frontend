@@ -2,7 +2,7 @@ import { Device } from './deviceModel';
 import { StartDate } from './startDateModel';
 
 export class Chart {
-    id?: string;
+    id: string;
     name: string;
     periodInMilliseconds: number;
     origin: Device;

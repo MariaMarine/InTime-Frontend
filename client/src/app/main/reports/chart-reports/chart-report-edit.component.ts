@@ -35,7 +35,7 @@ import { Chart } from 'src/app/models/chartModel';
     ) {}
     ngOnInit(): void {
         this.devices = this.route.snapshot.data['devices'];
-
+        console.log(this.currentChart);
         this.value = this.modifyMode ? this.currentChart.startDates.map (date => date.dateInMilliseconds) : [];
         const name = this.formBuilder.control(this.modifyMode ? `${this.currentChart.name}`
             : '', [Validators.required, Validators.minLength(3)]);
@@ -68,7 +68,7 @@ import { Chart } from 'src/app/models/chartModel';
             this.notificationService.show(`Origin can't be the same as destination!`, 'error');
         } else {
         this.routeForm.value.periodInMilliseconds = 16000000;
-        this.routeForm.value.startDates = [ 1548583000000,  1548583006000 ];
+        this.routeForm.value.startDates = [ 1548583000000, 1548583003000, 1548583009000 ];
         const action = this.modifyMode ? `updated` : `created`;
         const request = this.modifyMode ? this.http.put
             (`http://localhost:3000/chart-reports/${this.currentChart.id}`, JSON.stringify(this.routeForm.value))

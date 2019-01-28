@@ -53,36 +53,28 @@ export class ChartReportsService {
         return 'new chart created';
     }
 
-    async updateChartReport(user: User, updateChartReportDTO: ChartReportDTO): Promise<string> {
-
-        const chartToUpdate: ChartReport = await this.chartRepository.findOne({ where: { updateChartReportDTO } });
-        console.log(chartToUpdate);
+    async updateChartReport(user: User, chartReportId: string, updateChartReportDTO: ChartReportDTO): Promise<string> {
+        const chartToUpdate: ChartReport = await this.chartRepository.findOne({ where: { id: chartReportId } });
         if (!chartToUpdate) {
             throw new Error(`Chart not found!`);
         }
-        /*
-        let dates: StartDate[];
-        if (updateChartReportDTO.startDates.length) {
-            dates = await Promise.all(updateChartReportDTO.startDates.map(async (number) => {
-                const dateFound: StartDate = await this.startDateRepository.findOne({ where: { dateInMilliseconds: number } });
+        const datesFound = await this.startDateRepository.find({where : {chartReport: chartToUpdate}});
 
-                if (!dateFound) {
-
-                    const newStartDate: StartDate = new StartDate();
-                    newStartDate.dateInMilliseconds = number;
-                    await this.startDateRepository.create(newStartDate);
-                    return await this.startDateRepository.save(newStartDate);
-                }
-                return dateFound;
-            }));
-        }
-        */
+        await this.startDateRepository.delete(datesFound);
         chartToUpdate.origin = updateChartReportDTO.origin;
         chartToUpdate.destination = updateChartReportDTO.destination;
         chartToUpdate.name = updateChartReportDTO.name;
         chartToUpdate.periodInMilliseconds = updateChartReportDTO.periodInMilliseconds;
-        // chartToUpdate.startDates = updateChartReportDTO.startDates;
-        // console.log(chartToUpdate);
+
+        const startDates = [];
+        updateChartReportDTO.startDates.forEach(date => {
+            const startDate = new StartDate();
+            startDate.dateInMilliseconds = date;
+            startDates.push(startDate);
+            });
+        await this.startDateRepository.create([...startDates]);
+        const result = await this.startDateRepository.save([...startDates]);
+        chartToUpdate.startDates = result;
 
         await this.chartRepository.create(chartToUpdate);
         await this.chartRepository.save(chartToUpdate);
@@ -90,19 +82,15 @@ export class ChartReportsService {
         return JSON.stringify(`Chart table report successfully updated.`);
     }
 
-    async deleteChartReportById(user: User, tableReportId: string, chartReportId: string): Promise<string> {
-        const table: TableReport = await this.tableReportsService.getTableReportById(tableReportId);
-
-        this.tableReportsService.confirmCurrentUser(user, table.user);
-
+    async deleteChartReportById(user: User, chartReportId: string): Promise<string> {
         const chartToDelete: ChartReport = await this.chartRepository.findOne({ where: { id: chartReportId } });
-
         if (!chartToDelete) {
-            throw new Error(`Action not permitted! You have no chart with id "${chartReportId}".`);
+            throw new Error(`Chart not found!`);
         }
-
+        const datesFound = await this.startDateRepository.find({where : {chartReport: chartToDelete}});
+        await this.startDateRepository.delete(datesFound);
         await this.chartRepository.delete(chartReportId);
 
-        return `Chart report with id "${chartReportId}" was successfully deleted.`;
+        return JSON.stringify(`Chart report with id "${chartReportId}" was successfully deleted.`);
     }
 }

@@ -60,23 +60,23 @@ export class TableReportsController {
   }
 }
 
-  @Put('chart-reports/:chartReportId')
+  @Put('chart-reports/:id')
   @UseGuards(AuthGuard())
   async updateChartReportById(
-    @Request() req,
+    @Request() req, @Param('id') chartReportId,
     @Body() updateChartReportDTO: ChartReportDTO): Promise<string> {
+      console.log(chartReportId);
       try {
-        return await this.chartReportsService.updateChartReport(req.user, updateChartReportDTO);
+        return await this.chartReportsService.updateChartReport(req.user, chartReportId, updateChartReportDTO);
     } catch (error){
       throw new HttpException(error.message, HttpStatus.CONFLICT);
     }
   }
 
-  @Delete('chart-reports/:chartReportId')
+  @Delete('chart-reports/:id')
   @UseGuards(AuthGuard())
   async deleteChartReportById(
-    @Request() req,
-    @Param() params): Promise<string> {
-    return await this.chartReportsService.deleteChartReportById(req.user, params.tableReportId, params.chartReportId);
+    @Request() req, @Param('id') chartReportId): Promise<string> {
+    return await this.chartReportsService.deleteChartReportById(req.user, chartReportId);
   }
 }

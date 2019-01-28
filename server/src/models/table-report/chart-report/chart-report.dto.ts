@@ -5,7 +5,7 @@ import { Device } from 'src/data/entities/device.entity';
 
 export class ChartReportDTO {
 
-    @IsOptional()
+    @IsString()
     id: string;
 
     @IsString()
