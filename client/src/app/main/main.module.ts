@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from '@progress/kendo-angular-dropdowns';
 import { TabStripModule } from '@progress/kendo-angular-layout';
 import { ChartReportComponent } from './reports/chart-reports/chart-report.component';
+import { ChartModule } from '@progress/kendo-angular-charts';
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,7 @@ import { ChartReportComponent } from './reports/chart-reports/chart-report.compo
     ChartReportComponent
   ],
   imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule,
-    ReactiveFormsModule, NgbModule, MultiSelectModule, TabStripModule],
+    ReactiveFormsModule, NgbModule, MultiSelectModule, TabStripModule, ChartModule],
   providers: [],
   exports: [MainComponent, MapComponent]
 })

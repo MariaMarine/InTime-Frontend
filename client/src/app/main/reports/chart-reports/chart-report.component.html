@@ -8,13 +8,18 @@
     <span class="k-icon k-i-pencil k-icon-64 k-icon-right"[ngClass]="{'pointer': !createMode}" 
         (click)="editTable()"></span>
 </h4>
-<div>
-    <p *ngFor="let date of chart.startDates"> {{date.dateInMilliseconds | date : 'short'}}
-        - {{(+date.dateInMilliseconds + (+chart.periodInMilliseconds)) | date : 'short'}} :
-        {{ (chartData) ? extractValues(chartData[date.dateInMilliseconds]) : null}}
-    </p>
-</div>
-
-
-   
-
+<kendo-chart 
+[transitions]="false">
+    <kendo-chart-category-axis *ngIf="chartData">
+        <kendo-chart-category-axis-item
+            [categories]="extractValuesX((chartData[startDates[0]]))">
+        </kendo-chart-category-axis-item>
+    <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
+    </kendo-chart-category-axis>
+    <kendo-chart-series *ngIf="chartData">
+      <kendo-chart-series-item *ngFor="let date of startDates"
+      type="line" [data]="extractValuesY(chartData[date])"
+      [name]="displayRange(date)">
+      </kendo-chart-series-item>
+    </kendo-chart-series>
+</kendo-chart> 

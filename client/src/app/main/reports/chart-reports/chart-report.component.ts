@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Table } from 'src/app/models/tableModel';
 import { RequesterService } from 'src/app/core/reqester.service';
+import { StartDate } from 'src/app/models/startDateModel';
 
 
 @Component({
@@ -25,6 +26,9 @@ export class ChartReportComponent implements OnInit {
   public toggled: boolean;
   public values: {x: any, y: any}[];
 
+  public startDates: number [];
+  public series: any[];
+  public categories: number[];
   public constructor(private readonly requester: RequesterService) {}
 
 
@@ -33,8 +37,9 @@ export class ChartReportComponent implements OnInit {
     const origin = this.chart.origin.name;
     const destination = this.chart.destination.name;
     const period = this.chart.periodInMilliseconds;
-    const startDates: string = this.chart.startDates.map(date => date.dateInMilliseconds).join(',');
-    this.call(origin, destination, period, startDates);
+    this.startDates = this.chart.startDates.map(date => date.dateInMilliseconds);
+    const startDatesStr = this.startDates.join(',');
+    this.call(origin, destination, period, startDatesStr);
   }
 
 
@@ -57,12 +62,23 @@ export class ChartReportComponent implements OnInit {
     const url = `http://ec2-35-158-53-19.eu-central-1.compute.amazonaws.com:8080/api/comparePeriods?originDeviceId=${origin}&destinationDeviceId=${destination}&startDates=${startDates}&periodLength=${period}`;
     return this.requester.get(url).subscribe(data => {
       this.chartData = data;
-      console.log(this.chartData);
-    });
+     });
   }
 
-  public extractValues(data) {
+  public extractValuesX(data) {
+    this.values = data;
+    return this.values.map(value => '');
+  }
+
+  public extractValuesY(data) {
     this.values = data;
     return this.values.map(value => value.y);
   }
+
+  public displayRange(date): string {
+    const startDate = new Date(+date).toLocaleString();
+    const endDate = new Date(+date + (+this.chart.periodInMilliseconds)).toLocaleString();
+    return `${startDate} - ${endDate}`;
+  }
+
 }
