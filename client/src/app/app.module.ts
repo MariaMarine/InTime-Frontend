@@ -19,6 +19,7 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
 import { RegisterComponent } from './register/register.component';
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import 'hammerjs';
+import { EditProfileComponent } from './profile/edit-profile.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import 'hammerjs';
     NavbarComponent,
     RegisterComponent,
     ProfileComponent,
+    EditProfileComponent
   ]
   ,
   imports: [
