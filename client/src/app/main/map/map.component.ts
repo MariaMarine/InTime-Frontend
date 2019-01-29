@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
+import { TableMapService } from '../../core/tableToMap.service';
+import { Device } from '../../models/deviceModel';
 
 
 @Component({
@@ -6,10 +9,22 @@ import { Component } from '@angular/core';
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.css']
 })
-export class MapComponent {
+export class MapComponent implements OnInit {
 
     private lat = 42.698334;
     private lng = 23.319941;
+    private markers: Device[] = [];
+    constructor(
+        private readonly tableToMap: TableMapService
+    ) {}
+
+    ngOnInit() {
+        this.tableToMap.devices$
+        .subscribe(data => {
+            console.log('samo ceca' , data)
+            this.markers = data;
+            });
+    }
 
 }
 

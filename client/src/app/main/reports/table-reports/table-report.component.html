@@ -9,7 +9,7 @@
         (click)="editTable()"></span>
 </h4>
 
-<table *ngIf="toggled" class="table table-bordered table-hover" style="width:100%">
+<table (click)="this.tableClick()" *ngIf="toggled" class="table table-bordered table-hover" style="width:100%">
     <thead class="thead-light">
         <tr>
             <th></th>

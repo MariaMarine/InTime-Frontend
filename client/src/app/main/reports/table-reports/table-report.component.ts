@@ -1,3 +1,4 @@
+import { TableMapService } from './../../../core/tableToMap.service';
 import {
   Component,
   Input,
@@ -25,7 +26,10 @@ export class TableReportComponent implements OnInit {
   public currentCol: string;
   public toggled: boolean;
 
-  public constructor(private readonly requester: RequesterService) {}
+  public constructor(
+    private readonly requester: RequesterService,
+    private readonly tableToMap: TableMapService
+  ) {}
 
 
   ngOnInit() {
@@ -41,7 +45,9 @@ export class TableReportComponent implements OnInit {
     this.currentCol = col;
     this.currentRow = row;
   }
-
+  public tableClick():void {
+    this.tableToMap.emitDevices(this.table.devices);
+  }
   public deleteTable() {
     if (!this.createMode) {
     this.requester.delete(`http://localhost:3000/table-reports/${this.table.id}`)
