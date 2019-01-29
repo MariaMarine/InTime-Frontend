@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-header">
+    Enter your changes!
+  </div>
+
+  <div class="card">
+    <form novalidate (ngSubmit)="save()" [formGroup]="edit">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="oldPassword">Old Password</label>
+        <div class="col-md-8">
+          <input class="form-control" id="oldPassword" type="password" placeholder="Old Password (required)"
+            formControlName="oldPassword" [ngClass]="{'is-invalid': (edit.get('oldPassword').touched ||
+                                    edit.get('oldPassword').dirty) &&
+                                    !edit.get('oldPassword').valid }" />
+          <span class="invalid-feedback">
+            <span *ngIf="edit.get('oldPassword').errors?.required">
+              Please enter your old password.
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div formGroupName="newPassGroup">
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="newPass">New Password</label>
+          <div class="col-md-8">
+            <input class="form-control" id="newPass" type="password" placeholder="New password (required)"
+              formControlName="newPass" />
+            <span class="invalid-feedback">
+              <!-- {{ emailMessage }} -->
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="confirmNewPassword">Confirm New Password</label>
+          <div class="col-md-8">
+            <input class="form-control" id="confirmNewPassowrd" type="password" placeholder="Confirm New Password (required)"
+              formControlName="confirmNewPassowrd" [ngClass]="{'is-invalid': edit.get('newPassGroup').errors ||
+                                                            ((edit.get('newPassGroup.confirmNewPassowrdl').touched || 
+                                                            edit.get('newPassGroup.confirmNewPassowrd').dirty) && 
+                                                            !edit.get('newPassGroup.confirmNewPassowrd').valid) }" />
+            <span class="invalid-feedback">
+              <span *ngIf="edit.get('newPassGroup.confirmNewPassword').errors?.required">
+                Please confirm your new password.
+              </span>
+              <span *ngIf="edit.get('newPassGroup').errors?.match">
+                The confirmation does not match the new password.
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary mr-3" type="submit" style="width:80px" [title]="edit.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+        [disabled]="!edit.valid">
+        Save
+      </button>
+    </form>
+  </div>
+</div>
