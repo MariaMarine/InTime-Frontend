@@ -29,11 +29,14 @@ import { Chart } from 'src/app/models/chartModel';
 
     public daterange: any = {};
 
-    // see original project for full list of options
-    // can also be setup using the config service to apply to multiple pickers
     public options: any = {
-        locale: { format: 'YYYY-MM-DD hh:mm A' },
+        timePicker: true,
+        locale: { format: 'M/DD/YYYY, hh:mm A' },
         alwaysShowCalendars: false,
+        // buttonClasses: 'btn btn-sm btn-info',
+        maxDate: new Date().toLocaleString(),
+        drops: 'up',
+        position: `right`,
     };
 
     constructor(
@@ -43,6 +46,8 @@ import { Chart } from 'src/app/models/chartModel';
         private readonly http: RequesterService,
     ) {}
     ngOnInit(): void {
+        const a = new Date().toLocaleString()
+        console.log(a);
         this.devices = this.route.snapshot.data['devices'];
         this.value = this.modifyMode ? this.currentChart.startDates.map (date => date.dateInMilliseconds) : [];
         const name = this.formBuilder.control(this.modifyMode ? `${this.currentChart.name}`
@@ -54,6 +59,7 @@ import { Chart } from 'src/app/models/chartModel';
         const periodInMilliseconds = this.formBuilder.control(this.modifyMode ? `${this.currentChart.periodInMilliseconds }`
             : '', []);
         const startDates = this.formBuilder.control([...this.value], []);
+        // const daterangeInput = this.formBuilder.control('', []);
         this.routeForm = this.formBuilder.group({
             name,
             origin,
@@ -64,7 +70,8 @@ import { Chart } from 'src/app/models/chartModel';
     }
 
     public createRoute() {
-
+        this.routeForm.value.startDates = [this.daterange.start.valueOf()];
+        this.routeForm.value.periodInMilliseconds = this.daterange.end.valueOf() - this.daterange.start.valueOf();
         console.log(this.routeForm.value);
         if (this.originUpdate) {
             this.routeForm.value.origin = this.originUpdate;
@@ -75,8 +82,8 @@ import { Chart } from 'src/app/models/chartModel';
         if (this.routeForm.value.destination.name === this.routeForm.value.origin.name) {
             this.notificationService.show(`Origin can't be the same as destination!`, 'error');
         } else {
-        this.routeForm.value.periodInMilliseconds = 16000000;
-        this.routeForm.value.startDates = [ 1548583000000, 1548583003000, 1548583009000 ];
+        //this.routeForm.value.periodInMilliseconds = 16000000;
+        //this.routeForm.value.startDates = [ 1548583000000, 1548583003000, 1548583009000 ];
         const action = this.modifyMode ? `updated` : `created`;
         const request = this.modifyMode ? this.http.put
             (`http://localhost:3000/chart-reports/${this.currentChart.id}`, JSON.stringify(this.routeForm.value))
@@ -93,7 +100,6 @@ import { Chart } from 'src/app/models/chartModel';
         }
       }
     public originChange(event) {
-        console.log(event);
           this.originUpdate = event;
       }
     public destinationChange(event) {
@@ -108,9 +114,7 @@ import { Chart } from 'src/app/models/chartModel';
 
 
     public selectedDate(value: any, datepicker?: any) {
-        // this is the date the iser selected
-        //onsole.log(value);
-        console.log(value.start.valueOf()); 
+        console.log(value.start.valueOf());
         // any object can be passed to the selected event and it will be passed back here
         datepicker.start = value.start;
         datepicker.end = value.end;
