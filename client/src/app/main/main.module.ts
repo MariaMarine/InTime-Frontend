@@ -18,6 +18,7 @@ import { TabStripModule } from '@progress/kendo-angular-layout';
 import { ChartReportComponent } from './reports/chart-reports/chart-report.component';
 import { ChartModule } from '@progress/kendo-angular-charts';
 import { AgmCoreModule } from '@agm/core';
+import { Daterangepicker } from 'ng2-daterangepicker';
 import 'hammerjs';
 import { TableMapService } from '../core/tableToMap.service';
 
@@ -35,7 +36,7 @@ import { TableMapService } from '../core/tableToMap.service';
   ],
   imports: [ MainRoutingModule, SplitterModule, CommonModule, FormsModule, DropDownsModule,
     ReactiveFormsModule, NgbModule, MultiSelectModule, TabStripModule, ChartModule,
-    AgmCoreModule.forRoot({
+    Daterangepicker, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC6K_3lElV3AD48s-1ZyQM74GsFw7qC9S8'
     })],
   providers: [TableMapService],

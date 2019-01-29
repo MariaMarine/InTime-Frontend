@@ -20,3 +20,12 @@
   cursor: pointer;
   color: #332D33;
 }
+.isDisabled {
+    cursor: default !important;
+  }
+.isDisabled > a {
+    color: currentColor;
+    display: inline-block;  /* For IE11/ MS Edge bug */
+    pointer-events: none !important;
+    text-decoration: none;
+  }
