@@ -30,6 +30,7 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mapLoaded = true;
   }
   receiveReportUpdate(event) {
+    console.log(event);
     this.reportsUpdate = event;
   }
   receiveChartUpdate (event) {

@@ -5,8 +5,8 @@
         [ngClass]="{'pointer': !createMode}" (click)="toggled=!toggled"></span>
     <span class="k-icon k-i-trash k-icon-64 k-icon-right" [ngClass]="{'pointer': !createMode}" 
         (click)="deleteTable()"></span>
-    <span class="k-icon k-i-pencil k-icon-64 k-icon-right"[ngClass]="{'pointer': !createMode}" 
-        (click)="editTable()"></span>
+    <a href="/main#edit" class="k-icon k-i-pencil k-icon-64 k-icon-right"[ngClass]="{'pointer': !createMode}" 
+        (click)="editTable()"></a>
 </h4>
 <kendo-chart *ngIf="toggled"
 [transitions]="false">
