@@ -1,7 +1,9 @@
-.rightselect {
-    float: right;
-}
+.btn-outline-danger {
+    margin-right: 1em;
+    margin-bottom: 1em;
+  }
 
-kendo-dropdownlist {
-    padding-left: 1em;
-}
+  .btn-success {
+    margin-bottom: 1em;
+  }
+
