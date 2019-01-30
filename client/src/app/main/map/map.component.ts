@@ -14,6 +14,7 @@ export class MapComponent implements OnInit {
     private lat = 42.698334;
     private lng = 23.319941;
     private markers: Device[] = [];
+
     constructor(
         private readonly tableToMap: TableMapService
     ) {}

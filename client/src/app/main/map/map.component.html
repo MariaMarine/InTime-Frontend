@@ -1,3 +1,12 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
+        <agm-marker *ngFor= "let device of markers"
+        [latitude]="device.latitude" [longitude]="device.longitude"
+        [title]="device.name">
+        <agm-info-window #infoWindow>
+                <div>
+                <p>Device name: <strong>{{device.name}}</strong><br>Latitude: <strong>{{device.latitude}}</strong><br>Longitude: <strong>{{device.longitude}}</strong><br>
+                </p>
+                </div>
+        </agm-info-window>
+        </agm-marker>
 </agm-map>
