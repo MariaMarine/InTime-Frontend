@@ -7,54 +7,28 @@ import { NotificatorService } from 'src/app/core/notification.service';
 import { RequesterService } from 'src/app/core/reqester.service';
 import { Chart } from 'src/app/models/chartModel';
 
-
 @Component({
     selector: 'app-chart-report-edit',
     templateUrl: './chart-report-edit.component.html',
     styleUrls: ['./chart-report-edit.component.css']
   })
   export class ChartReportEditComponent implements OnInit {
-
     public devices: Device [];
     public routeForm: FormGroup;
     @Output() public edited = new EventEmitter<boolean>();
     public editComplete = false;
     @Input() public modifyMode: boolean;
     public value: any [];
-
     public originUpdate: Device;
     public destinationUpdate: Device;
-
     @Input() public currentChart: Chart;
-    public daterange: any = {};
-    public singledaterange: any = {};
-
+    public dateRange: any = {};
+    public singleDateRange: any = {};
     public startDates: any = [];
-
-    public options: any = {
-        timePicker: true,
-        locale: { format: 'M/DD/YYYY, hh:mm A' },
-        alwaysShowCalendars: false,
-        // buttonClasses: 'btn btn-sm btn-info',
-        maxDate: new Date().toLocaleString(),
-        drops: 'up',
-
-    };
-
-    public optionsSingle: any = {
-        timePicker: true,
-        singleDatePicker: true,
-        autoUpdateInput: false,
-        locale: {
-          cancelLabel: 'Clear'
-        },
-        // locale: { format: 'M/DD/YYYY, hh:mm A' },
-        alwaysShowCalendars: false,
-        // buttonClasses: 'btn btn-sm btn-info',
-        maxDate: new Date().toLocaleString(),
-        drops: 'up',
-        position: 'right',
-    };
+    public defaultStartDateInMs: any;
+    public defaultEndDateInMs: any;
+    public options: any;
+    public optionsSingle: any;
 
     constructor(
         private readonly route: ActivatedRoute,
@@ -64,7 +38,10 @@ import { Chart } from 'src/app/models/chartModel';
     ) {}
     ngOnInit(): void {
         this.devices = this.route.snapshot.data['devices'];
-        this.value = this.modifyMode ? this.currentChart.startDates.map (date => date.dateInMilliseconds) : [];
+        if (this.modifyMode && this.currentChart.startDates.length > 1) {
+            this.startDates = this.currentChart.startDates.map(date => date.dateInMilliseconds).slice(1);
+        }
+        this.setOptions();
         const name = this.formBuilder.control(this.modifyMode ? `${this.currentChart.name}`
             : '', [Validators.required, Validators.minLength(3)]);
         const origin = this.formBuilder.control(this.modifyMode ? this.currentChart.origin
@@ -73,7 +50,7 @@ import { Chart } from 'src/app/models/chartModel';
             : '', [Validators.required]);
         const periodInMilliseconds = this.formBuilder.control(this.modifyMode ? `${this.currentChart.periodInMilliseconds }`
             : '', []);
-        const startDates = this.formBuilder.control([...this.value], []);
+        const startDates = this.formBuilder.control('', []);
         this.routeForm = this.formBuilder.group({
             name,
             origin,
@@ -83,13 +60,38 @@ import { Chart } from 'src/app/models/chartModel';
         });
     }
 
+    private setOptions () {
+        this.defaultStartDateInMs = this.modifyMode ? this.currentChart.startDates
+            .map(date => date.dateInMilliseconds)[0] : Date.now() - 28800000;
+        this.defaultEndDateInMs = this.modifyMode ? +(this.currentChart.startDates
+            .map(date => date.dateInMilliseconds))[0] + (+this.currentChart.periodInMilliseconds)
+            : Date.now();
+        this.options = {
+            timePicker: true,
+            locale: { format: 'M/DD/YYYY, hh:mm A' },
+            alwaysShowCalendars: false,
+            startDate: (new Date(+this.defaultStartDateInMs).toLocaleString()),
+            endDate: (new Date(+this.defaultEndDateInMs).toLocaleString()),
+            drops: 'up',
+        };
+        this.optionsSingle = {
+            timePicker: true,
+            singleDatePicker: true,
+            autoUpdateInput: false,
+            locale: {
+              cancelLabel: 'Clear'
+            },
+            alwaysShowCalendars: false,
+            maxDate: new Date().toLocaleString(),
+            drops: 'up',
+        };
+    }
     public createRoute() {
-        const extraDates = this.startDates.map (moment => moment.start.valueOf());
-        console.log(extraDates);
-        console.log(this.daterange);
-        this.routeForm.value.startDates = [this.daterange.start.valueOf(), ...extraDates];
-        this.routeForm.value.periodInMilliseconds = this.daterange.end.valueOf() - this.daterange.start.valueOf();
-        console.log(this.routeForm.value);
+        this.dateRange.start === undefined ? this.routeForm.value.startDates = [this.defaultStartDateInMs, ...this.startDates]
+         : this.routeForm.value.startDates = [this.dateRange.start.valueOf(), ...this.startDates];
+         this.dateRange.start === undefined ? this.routeForm.value.periodInMilliseconds =
+         this.defaultEndDateInMs - this.defaultStartDateInMs
+         : this.routeForm.value.periodInMilliseconds = this.dateRange.end.valueOf() - this.dateRange.start.valueOf();
         if (this.originUpdate) {
             this.routeForm.value.origin = this.originUpdate;
         }
@@ -112,7 +114,7 @@ import { Chart } from 'src/app/models/chartModel';
                 (err: HttpErrorResponse) => {
                     this.notificationService.show(`Report failed to be ${action}!`, 'error');
                 });
-        }
+            }
       }
     public originChange(event) {
           this.originUpdate = event;
@@ -129,21 +131,23 @@ import { Chart } from 'src/app/models/chartModel';
     public selectedDate(value: any, datepicker?: any) {
         datepicker.start = value.start;
         datepicker.end = value.end;
-        this.daterange.start = value.start;
-        this.daterange.end = value.end;
-        this.daterange.label = value.label;
+        this.dateRange.start = value.start;
+        this.dateRange.end = value.end;
     }
 
     public selectedSingleDate(value: any, datepicker?: any) {
-        console.log(value.start.valueOf());
         datepicker.start = value.start;
         datepicker.end = value.end;
-        this.singledaterange.start = value.start;
-        this.singledaterange.end = value.end;
-        this.singledaterange.label = value.label;
-        this.startDates.push(this.singledaterange);
+        this.singleDateRange.start = value.start;
+        this.singleDateRange.end = value.end;
+        this.singleDateRange.label = value.label;
+        this.startDates.push(this.singleDateRange.start.valueOf());
+        this.singleDateRange = {};
+    }
 
-        this.singledaterange = {};
+    public removeDate(startdate) {
+        this.startDates.splice(this.startDates.indexOf(startdate), 1);
+        console.log(this.startDates);
     }
 }
 

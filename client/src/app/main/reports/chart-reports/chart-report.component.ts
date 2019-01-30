@@ -25,7 +25,13 @@ export class ChartReportComponent implements OnInit {
   public chartData: any;
   public toggled: boolean;
   public values: {x: any, y: any}[];
-
+  public crosshair: any = {
+    visible: true,
+    tooltip: {
+        visible: true,
+        format: '##'
+    }
+};
   public startDates: number [];
   public series: any[];
   public categories: number[];
@@ -68,7 +74,8 @@ export class ChartReportComponent implements OnInit {
 
   public extractValuesX(data) {
     this.values = data;
-    return this.values.map(value => '');
+    const labels = this.values.map(value => new Date(+value.x).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+    return labels;
   }
 
   public extractValuesY(data) {
@@ -81,5 +88,4 @@ export class ChartReportComponent implements OnInit {
     const endDate = new Date(+date + (+this.chart.periodInMilliseconds)).toLocaleString();
     return `${startDate} - ${endDate}`;
   }
-
 }
