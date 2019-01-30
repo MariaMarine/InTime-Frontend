@@ -44,7 +44,6 @@ export class ChartReportComponent implements OnInit {
 
 
   public deleteTable() {
-    console.log(this.chart.id);
     if (!this.createMode) {
     this.requester.delete(`http://localhost:3000/chart-reports/${this.chart.id}`)
       .subscribe(res => {
