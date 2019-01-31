@@ -60,7 +60,6 @@ export class ChartReportComponent implements OnInit {
   }
 
   public editTable() {
-    console.log(this.createMode);
     if (!this.createMode) {
     this.modifyTable.emit(this.chart);
     }

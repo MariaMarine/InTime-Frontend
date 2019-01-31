@@ -147,7 +147,7 @@ import { Chart } from 'src/app/models/chartModel';
 
     public removeDate(startdate) {
         this.startDates.splice(this.startDates.indexOf(startdate), 1);
-        console.log(this.startDates);
+
     }
 }
 

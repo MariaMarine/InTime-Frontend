@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableMapService } from './../../../core/tableToMap.service';
 import {
   Component,
@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Table } from 'src/app/models/tableModel';
 import { RequesterService } from 'src/app/core/reqester.service';
-
+import { NotificatorService } from 'src/app/core/notification.service';
 
 @Component({
   selector: 'app-table-report',
@@ -38,6 +38,9 @@ export class TableReportComponent implements OnInit {
     private readonly requester: RequesterService,
     private readonly tableToMap: TableMapService,
     private readonly formBuilder: FormBuilder,
+
+    private readonly notificator: NotificatorService,
+
   ) {}
 
 
@@ -47,7 +50,7 @@ export class TableReportComponent implements OnInit {
     const endDate: number = Date.now();
     const startDate: number = endDate - (this.table.period * 3600 * 1000);
     const period = `{"from":${startDate},"to":${endDate}}`;
-    this.userPrefs = {};
+    this.userPrefs = this.table.minMaxValues || {};
     return this.call(devices, period);
   }
 
@@ -58,16 +61,6 @@ export class TableReportComponent implements OnInit {
   public tableClick(): void {
     this.tableToMap.emitDevices(this.table.devices);
   }
-  public deleteTable() {
-    if (!this.createMode) {
-    this.requester.delete(`http://localhost:3000/table-reports/${this.table.id}`)
-      .subscribe(res => {
-        this.editComplete = true;
-        this.edited.emit(this.editComplete);
-      });
-    }
-  }
-
   public editTable() {
     if (!this.createMode) {
     this.modifyTable.emit(this.table);
@@ -81,8 +74,12 @@ export class TableReportComponent implements OnInit {
     this.origin = origin;
     this.destination = destination;
     this.currentValue = ((this.tableData[destination])[origin]);
-    const min = this.formBuilder.control('', []);
-    const max = this.formBuilder.control('', []);
+    const min = this.formBuilder.control(this.checkPrefs(origin, destination)
+      ? this.userPrefs[origin][destination]['min']
+      : '', [Validators.required, Validators.min(0)]);
+    const max = this.formBuilder.control(this.checkPrefs(origin, destination)
+      ? this.userPrefs[origin][destination]['max']
+      : '', [Validators.required, Validators.min(1)]);
     this.prefs = this.formBuilder.group({
       min,
       max,
@@ -90,50 +87,55 @@ export class TableReportComponent implements OnInit {
   }
 
   setPrefs() {
-    console.log(this.origin);
+    if (this.prefs.value.min >= this.prefs.value.max) {
+      this.notificator.show('Minimum expected travel time must be shorter than maximum expected travel time!', 'error');
+    } else {
     if (!this.userPrefs[this.origin]) {
       this.userPrefs[this.origin] = {};
-    }  // resets previous props??
+    }
     this.userPrefs[this.origin][this.destination] = {};
     this.userPrefs[this.origin][this.destination]['min'] = this.prefs.value.min;
     this.userPrefs[this.origin][this.destination]['max'] = this.prefs.value.max;
-    console.log(this.userPrefs);
-    this.prefs.reset();
+    this.table.minMaxValues = this.userPrefs;
+    this.requester.put(`http://localhost:3000/table-reports/${this.table.id}`,
+      JSON.stringify(this.table)).subscribe();
+    this.prefs.reset(); 
     this.cellSelected = false;
+    }
   }
-/*
-  undermin(origin, destination) {
-   const currentValue = ((this.tableData[destination])[origin]);
-   if (this.userPrefs) {
-     if (this.userPrefs[origin]) {
-       if (this.userPrefs[origin][destination]) {
-        return this.currentValue > this.userPrefs[origin][destination]['min'];
-       }
-     }
-   }
-   return false;
+  private checkPrefs(origin, destination) {
+    return (this.userPrefs !== undefined && this.userPrefs[origin] !== undefined
+      && this.userPrefs[origin][destination] !== undefined);
   }
-*/
-  overmax(origin, destination) {
+  checkMinMax(origin, destination) {
     const currentValue = ((this.tableData[destination])[origin]);
-    if (this.userPrefs) {
-      if (this.userPrefs[origin]) {
-        if (this.userPrefs[origin][destination]) {
-         if (currentValue > this.userPrefs[origin][destination]['max']) {
-           return 'red';
-         } else if ((currentValue > this.userPrefs[origin][destination]['max']  / 2))  {
-            return 'yellow';
-         } else {
-           return 'green';
-         }
-        }
+      if (this.checkPrefs(origin, destination)) {
+       const avg = ((this.userPrefs[origin][destination]['max'] +
+       this.userPrefs[origin][destination]['min'])  / 2);
+      if (currentValue > this.userPrefs[origin][destination]['max']) {
+        return 'btn-danger';
+       } else if (currentValue > avg)  {
+           return 'btn-warning';
+       } else if (currentValue > this.userPrefs[origin][destination]['min'])  {
+           return 'btn-success';
+       } else {
+           return 'btn-dark';
       }
     }
-    return;
-   }
+  }
+
   private call(devices, period) {
     const url = `http://ec2-35-158-53-19.eu-central-1.compute.amazonaws.com:8080/api/travelTimeTableData?devices=${devices}&date=${period}`;
     return this.requester.get(url).subscribe(data => this.tableData = data);
+  }
+  public deleteTable() {
+    if (!this.createMode) {
+    this.requester.delete(`http://localhost:3000/table-reports/${this.table.id}`)
+      .subscribe(res => {
+        this.editComplete = true;
+        this.edited.emit(this.editComplete);
+      });
+    }
   }
 
 }

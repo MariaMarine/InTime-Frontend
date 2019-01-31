@@ -1,7 +1,7 @@
 import { DeviceEditService } from './../../core/device-edit.service';
 import { Device } from './../../models/deviceModel';
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
@@ -25,7 +25,11 @@ export class DevicesComponent implements OnInit, OnDestroy {
     private editedRowIndex: number;
 
     constructor(private readonly editService: DeviceEditService,
-        private readonly nav: NavbarService) {
+        private readonly nav: NavbarService, private zone: NgZone) {
+            this.editService.subscribe((state) => {
+                this.zone.run(() => {
+                });
+            });
     }
 
     public ngOnInit(): void {

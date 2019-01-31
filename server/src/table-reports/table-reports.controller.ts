@@ -65,7 +65,6 @@ export class TableReportsController {
   async updateChartReportById(
     @Request() req, @Param('id') chartReportId,
     @Body() updateChartReportDTO: ChartReportDTO): Promise<string> {
-      console.log(chartReportId);
       try {
         return await this.chartReportsService.updateChartReport(req.user, chartReportId, updateChartReportDTO);
     } catch (error){

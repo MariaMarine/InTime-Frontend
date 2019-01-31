@@ -20,9 +20,10 @@
         <tr *ngFor= "let row of table.devices">
             <th scope="row">{{row.name}}</th>
             <td class="cell-hover" *ngFor= "let device of table.devices" (click)="device.name !== row.name 
-                ? openMinMax(row.name, device.name) : cellSelected = false" [ngClass]="overmax(row.name, device.name)" >
+                ? openMinMax(row.name, device.name) : cellSelected = false" >
+                <button class="btn btn-sm" [ngClass]="(tableData !== undefined) ? checkMinMax(row.name, device.name) : null">
                 {{setRowCol(device.name, row.name) }} {{ (tableData !== undefined) ? 
-                ((tableData )[currentCol])[currentRow] : null }}
+                ((tableData )[currentCol])[currentRow] : null }}</button>
             </td>
         </tr>
     </tbody>
@@ -31,16 +32,13 @@
 <div *ngIf="cellSelected && toggled">
     <form [formGroup]="prefs" class="form-inline" (ngSubmit)="setPrefs()">
         <button [disabled]="true" class="btn btn-sm">{{origin}} - {{destination}} </button>
-    <!--
-        <div class="form-group">
             <div class="form-group">
-                <input formControlName="min" type="number" class="form-control smallinput form-control-sm" id="min" placeholder="min">
+                <input required formControlName="min" type="number" class="form-control smallinput form-control-sm" id="min" placeholder="min">
             </div>
-        -->
             <div class="form-group">
-                <input formControlName="max" type="number" class="form-control smallinput form-control-sm" id="max" placeholder="max">
+                <input required formControlName="max" type="number" class="form-control smallinput form-control-sm" id="max" placeholder="max">
             </div>
-            <button type="submit" class='btn btn-sm btn-success'>
+            <button type="submit" class='btn btn-sm btn-success' [disabled]=prefs.invalid>
                 <span class="k-icon k-i-check"></span></button>
             <button type="button" class ='btn btn-sm btn-danger' (click)="cellSelected=false">
                 <span class="k-icon k-i-close"></span></button>
