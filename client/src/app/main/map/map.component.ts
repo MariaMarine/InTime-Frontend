@@ -22,7 +22,7 @@ export class MapComponent implements OnInit {
     ngOnInit() {
         this.tableToMap.devices$
         .subscribe(data => {
-            console.log('samo ceca' , data)
+            console.log('пънку нема умре' , data);
             this.markers = data;
             });
     }

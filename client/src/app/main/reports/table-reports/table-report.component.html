@@ -2,7 +2,7 @@
 <h4>{{table.name | sentenceCase }} 
     <small class="text-muted">{{table.period}}-hour period</small>
     <span class="k-icon k-i-arrow-chevron-down k-icon-64 k-icon-nofloat" 
-        [ngClass]="{'pointer': !createMode}" (click)="toggled=!toggled"></span>
+        [ngClass]="{'pointer': !createMode}" (click)="toggled=!toggled" (click)="cellSelected=false"></span>
     <span class="k-icon k-i-trash k-icon-64 k-icon-right" [ngClass]="{'pointer': !createMode}" 
         (click)="deleteTable()"></span>
     <a href="/main#edit" class="k-icon k-i-pencil k-icon-64 k-icon-right" [ngClass]="{'pointer': !createMode, 'isDisabled': createMode}" 
@@ -19,11 +19,33 @@
     <tbody>
         <tr *ngFor= "let row of table.devices">
             <th scope="row">{{row.name}}</th>
-            <td class="cell-hover" *ngFor= "let device of table.devices" >{{setRowCol(device.name, row.name) }} {{ (tableData !== undefined) ? ((tableData )[currentCol])[currentRow] : null }}</td>
+            <td class="cell-hover" *ngFor= "let device of table.devices" (click)="device.name !== row.name 
+                ? openMinMax(row.name, device.name) : cellSelected = false" [ngClass]="overmax(row.name, device.name)" >
+                {{setRowCol(device.name, row.name) }} {{ (tableData !== undefined) ? 
+                ((tableData )[currentCol])[currentRow] : null }}
+            </td>
         </tr>
     </tbody>
 </table>
 
+<div *ngIf="cellSelected && toggled">
+    <form [formGroup]="prefs" class="form-inline" (ngSubmit)="setPrefs()">
+        <button [disabled]="true" class="btn btn-sm">{{origin}} - {{destination}} </button>
+    <!--
+        <div class="form-group">
+            <div class="form-group">
+                <input formControlName="min" type="number" class="form-control smallinput form-control-sm" id="min" placeholder="min">
+            </div>
+        -->
+            <div class="form-group">
+                <input formControlName="max" type="number" class="form-control smallinput form-control-sm" id="max" placeholder="max">
+            </div>
+            <button type="submit" class='btn btn-sm btn-success'>
+                <span class="k-icon k-i-check"></span></button>
+            <button type="button" class ='btn btn-sm btn-danger' (click)="cellSelected=false">
+                <span class="k-icon k-i-close"></span></button>
+    </form>
+</div>
 
    
 
