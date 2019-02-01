@@ -1,7 +1,7 @@
 import { UserPasswordDTO } from './../models/user/user-password.dto';
 import { AdminGuard } from './../common/guards/roles/admin.guard';
 import { AuthGuard } from '@nestjs/passport';
-import { Controller, Get, UseGuards, Request, Post, Body, ValidationPipe, HttpException, HttpStatus, Delete, Put } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Post, Body, ValidationPipe, HttpException, HttpStatus, Delete, Put, Param } from '@nestjs/common';
 import { UsersService } from './../common/core/users.service';
 import { UserRegisterDTO } from 'src/models/user/user-register.dto';
 
@@ -36,17 +36,12 @@ export class UsersController {
     }
   }
 
-  @Delete()
+  @Delete(':id')
   @UseGuards(AuthGuard(), AdminGuard)
-  async delete(@Request() req,
-               @Body(new ValidationPipe({
-      transform: true,
-      whitelist: true,
-    }))
-    email): Promise<string> {
+  async delete(@Request() req, @Param('id') id: string): Promise<string> {
 
     try {
-      await this.usersService.deleteUser(email, req.user);
+      await this.usersService.deleteUser(id, req.user);
       return JSON.stringify('User deleted!');
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.CONFLICT);

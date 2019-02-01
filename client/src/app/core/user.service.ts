@@ -6,11 +6,15 @@ import { tap } from 'rxjs/operators/tap';
 import { map } from 'rxjs/operators/map';
 import { RequesterService } from './reqester.service';
 import { NotificatorService } from './notification.service';
+import { StorageService } from './storage.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserService extends BehaviorSubject<any[]> {
     constructor(private readonly http: RequesterService,
-        private readonly notificator: NotificatorService) {
+        private readonly notificator: NotificatorService,
+        private readonly localstorage: StorageService,
+        private readonly router: Router) {
 
         super([]);
     }
@@ -50,8 +54,16 @@ export class UserService extends BehaviorSubject<any[]> {
     }
 
     public remove(data: any) {
-        this.http.delete(`http://localhost:3000/users`, data)
-        .subscribe();
+        console.log(data);
+        this.http.delete(`http://localhost:3000/users/${data.id}`)
+        .subscribe(() => {
+            if (data.isAdmin) {
+                this.notificator.show('Bye!', 'success');
+                this.localstorage.clear();
+                this.router.navigate(['/home']);
+                }
+            },
+        );
         this.reset();
         this.fetch(data)
             .subscribe(() => {
