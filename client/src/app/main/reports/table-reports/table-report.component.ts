@@ -98,7 +98,9 @@ export class TableReportComponent implements OnInit {
     this.userPrefs[this.origin][this.destination]['max'] = this.prefs.value.max;
     this.table.minMaxValues = this.userPrefs;
     this.requester.put(`http://localhost:3000/table-reports/${this.table.id}`,
-      JSON.stringify(this.table)).subscribe();
+      JSON.stringify(this.table)).subscribe(
+        () => this.notificator.show('Settings updated', 'success'),
+        () => this.notificator.show('Could not update settings', 'error'));
     this.prefs.reset(); 
     this.cellSelected = false;
     }
@@ -116,7 +118,7 @@ export class TableReportComponent implements OnInit {
         return 'btn-danger';
        } else if (currentValue > avg)  {
            return 'btn-warning';
-       } else if (currentValue > this.userPrefs[origin][destination]['min'])  {
+       } else if (currentValue >= this.userPrefs[origin][destination]['min'])  {
            return 'btn-success';
        } else {
            return 'btn-dark';
