@@ -20,7 +20,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
         this.spinner.show();
 
         return next.handle(req).pipe(
-            delay(1000),
+           delay(0),
             finalize(() => this.spinner.hide())
         );
     }

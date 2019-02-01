@@ -6,6 +6,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NotificatorService } from 'src/app/core/notification.service';
 import { RequesterService } from 'src/app/core/reqester.service';
 import { Chart } from 'src/app/models/chartModel';
+import { DaterangepickerConfig } from 'ng2-daterangepicker';
 
 @Component({
     selector: 'app-chart-report-edit',
@@ -34,8 +35,9 @@ import { Chart } from 'src/app/models/chartModel';
         private readonly route: ActivatedRoute,
         private readonly formBuilder: FormBuilder,
         private readonly notificationService: NotificatorService,
-        private readonly http: RequesterService,
-    ) {}
+        private readonly http: RequesterService) {
+
+        }
     ngOnInit(): void {
         this.devices = this.route.snapshot.data['devices'];
         if (this.modifyMode && this.currentChart.startDates.length > 1) {
@@ -69,10 +71,10 @@ import { Chart } from 'src/app/models/chartModel';
         this.options = {
             timePicker: true,
             locale: { format: 'M/DD/YYYY, hh:mm A' },
-            alwaysShowCalendars: false,
+            alwaysShowCalendars: true,
             startDate: (new Date(+this.defaultStartDateInMs).toLocaleString()),
             endDate: (new Date(+this.defaultEndDateInMs).toLocaleString()),
-            drops: 'up',
+            drops: 'down',
         };
         this.optionsSingle = {
             timePicker: true,
@@ -83,9 +85,9 @@ import { Chart } from 'src/app/models/chartModel';
             },
             alwaysShowCalendars: false,
             maxDate: new Date().toLocaleString(),
-            drops: 'up',
+            drops: 'down',
         };
-    }
+    } 
     public createRoute() {
         this.dateRange.start === undefined ? this.routeForm.value.startDates = [this.defaultStartDateInMs, ...this.startDates]
          : this.routeForm.value.startDates = [this.dateRange.start.valueOf(), ...this.startDates];

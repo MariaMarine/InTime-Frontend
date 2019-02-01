@@ -5,18 +5,27 @@ import {
   OnInit,
   EventEmitter,
   Output,
+  ViewChild
 } from '@angular/core';
-import { Table } from 'src/app/models/tableModel';
 import { RequesterService } from 'src/app/core/reqester.service';
-import { StartDate } from 'src/app/models/startDateModel';
+import { ChartComponent } from '@progress/kendo-angular-charts';
+import { saveAs } from '@progress/kendo-file-saver';
+import { geometry, fit, exportPDF, Group } from '@progress/kendo-drawing';
 
+function mm(val: number): number {
+  return val * 2.8347;
+}
 
+const PAGE_RECT = new geometry.Rect([0, 0], [mm(297 - 20), mm(210 - 20)]);
 @Component({
   selector: 'app-chart-report',
   templateUrl: './chart-report.component.html',
   styleUrls: ['./chart-report.component.css']
 })
 export class ChartReportComponent implements OnInit {
+
+  @ViewChild('char')
+  private char: ChartComponent;
   @Input() public chart: Chart;
   @Input() public createMode: boolean;
   @Output() public edited = new EventEmitter<boolean>();
@@ -25,18 +34,11 @@ export class ChartReportComponent implements OnInit {
   public chartData: any;
   public toggled: boolean;
   public values: {x: any, y: any}[];
-  public crosshair: any = {
-    visible: true,
-    tooltip: {
-        visible: true,
-        format: '##'
-    }
-};
+
   public startDates: number [];
   public series: any[];
   public categories: number[];
   public constructor(private readonly requester: RequesterService) {}
-
 
   ngOnInit() {
     this.toggled = true;
@@ -47,7 +49,6 @@ export class ChartReportComponent implements OnInit {
     const startDatesStr = this.startDates.join(',');
     this.call(origin, destination, period, startDatesStr);
   }
-
 
   public deleteTable() {
     if (!this.createMode) {
@@ -73,7 +74,10 @@ export class ChartReportComponent implements OnInit {
 
   public extractValuesX(data) {
     this.values = data;
-    const labels = this.values.map(value => new Date(+value.x).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+    const labels = this.values.map((value, i, arr) => arr.length <= 8 ?
+      new Date(+value.x).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+      : (i % 4 === 0) ? new Date(+value.x).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+      : '');
     return labels;
   }
 
@@ -86,5 +90,24 @@ export class ChartReportComponent implements OnInit {
     const startDate = new Date(+date).toLocaleString();
     const endDate = new Date(+date + (+this.chart.periodInMilliseconds)).toLocaleString();
     return `${startDate} - ${endDate}`;
+  }
+  public exportScaledChart(char): void {
+    const visual = char.exportVisual();
+    const content = new Group();
+
+    content.append(visual);
+    fit(content, PAGE_RECT);
+
+    this.exportElement(content);
+  }
+
+  private exportElement(element: any): void {
+    exportPDF(element, {
+      paperSize: 'A4',
+      landscape: true,
+      margin: '1cm'
+    }).then((dataURI) => {
+      saveAs(dataURI, `${this.chart.name}.pdf`);
+    });
   }
 }
