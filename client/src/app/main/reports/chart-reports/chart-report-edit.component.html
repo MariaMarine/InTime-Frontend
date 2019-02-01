@@ -30,18 +30,18 @@
     <p></p>
     <label for="daterangeInput">Select date range to compare:</label>
     <input type="text" class="form-control" name="daterangeInput" daterangepicker 
-    [options]="options" (selected)="selectedDate($event, daterange)" />
+        [options]="options" (selected)="selectedDate($event, dateRange)" />
     <p></p>
     <div class="btn-group" role="group" *ngFor="let startdate of startDates">
         <button type="button" [disabled]="true" class='btn btn-sm btn-success'>
-            {{startdate.start.valueOf() | date :'short'}}</button>
-        <button type="button" class ='btn btn-sm btn-outline-danger' >
+            {{startdate | date :'short'}}</button>
+        <button type="button" class ='btn btn-sm btn-danger' (click)="removeDate(startdate)">
                 <span class="k-icon k-i-close"></span>
                     </button></div>
     <div>
     <label for="singledaterangeInput">Select additional start dates to compare:</label>
     <input type="text" class="form-control" name="singledaterangeInput" daterangepicker 
-    [options]="optionsSingle" (selected)="selectedSingleDate($event, singledaterange)"
+    [options]="optionsSingle" (selected)="selectedSingleDate($event, singleDateRange)"
     placeholder="Or just leave me empty... "/></div>
     <p></p>
     <button [disabled]="this.routeForm.invalid" type="submit" class="btn btn-info" > Save </button>

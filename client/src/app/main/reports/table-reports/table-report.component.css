@@ -38,3 +38,24 @@ table, th, td {
     pointer-events: none !important;
     text-decoration: none;
   }
+.smallinput {
+  width: 5em;
+}
+
+.btn-sm, .smallinput {
+  margin-right: 1px;
+}
+
+.green {
+ color: lightgreen;
+}
+
+.red {
+  color:coral;
+  
+}
+
+.yellow {
+  color: yellow;
+}
+

@@ -9,17 +9,23 @@
         (click)="editTable()"></a>
 </h4>
 <kendo-chart *ngIf="toggled"
-[transitions]="false">
-    <kendo-chart-category-axis *ngIf="chartData">
-        <kendo-chart-category-axis-item
+[transitions]="false"
+[pannable]="{ lock: 'y' }"
+[zoomable]="{ mousewheel: { lock: 'y' } }">
+    <kendo-chart-category-axis *ngIf="chartData" > 
+        <kendo-chart-category-axis-item [max]=20 [labels]="{ rotation: 'auto'} "
             [categories]="extractValuesX((chartData[startDates[0]]))">
+            <kendo-chart-category-axis-item-crosshair>
+            </kendo-chart-category-axis-item-crosshair>
         </kendo-chart-category-axis-item>
     <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
     </kendo-chart-category-axis>
+
     <kendo-chart-series *ngIf="chartData">
-      <kendo-chart-series-item *ngFor="let date of startDates"
-      type="line" [data]="extractValuesY(chartData[date])"
-      [name]="displayRange(date)">
-      </kendo-chart-series-item>
+      <kendo-chart-series-item type="line" *ngFor="let date of startDates"
+      [data]="extractValuesY(chartData[date])"
+      [name]="displayRange(date)"
+      >
+       </kendo-chart-series-item>
     </kendo-chart-series>
 </kendo-chart> 

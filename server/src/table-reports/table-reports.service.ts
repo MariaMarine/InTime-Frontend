@@ -67,8 +67,6 @@ export class TableReportsService {
     async updateTableById(userLogged: User, tableId: string, updateTableReportDTO: UpdateTableReportDTO) {
         const tableToUpdate: TableReport = await this.getTableReportById(tableId);
 
-        // this.confirmCurrentUser(userLogged, tableToUpdate.user);
-
         if (!tableToUpdate) {
             throw new Error(`Action not permitted! You have no table with id "${tableId}".`);
         }
@@ -98,6 +96,9 @@ export class TableReportsService {
             tableToUpdate.period = updateTableReportDTO.period;
             tableToUpdate.devices = devicesToPush;
         }
+        if (updateTableReportDTO.minMaxValues) {
+            tableToUpdate.minMaxValues = updateTableReportDTO.minMaxValues;
+        }
         await this.tableReportsRepository.update(tableId, tableToUpdate);
         await this.tableReportsRepository.save(tableToUpdate);
 
@@ -106,8 +107,6 @@ export class TableReportsService {
 
     async deleteTableById(userLogged, tableId) {
         const tableToDelete: TableReport = await this.tableReportsRepository.findOne({ where: { id: tableId, user: userLogged } });
-        console.log(tableToDelete);
-
         if (!tableToDelete) {
             throw new BadRequestException('Action not permitted! This user has no such table.');
         }

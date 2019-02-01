@@ -34,4 +34,9 @@ export class TableReport {
     @ManyToOne(type => User, user => user.tableReports)
     user: User;
 
+    @Column('json', { default: null })
+    @IsOptional()
+    minMaxValues?: string;
+
 }
+

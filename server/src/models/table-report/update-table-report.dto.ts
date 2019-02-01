@@ -15,4 +15,8 @@ export class UpdateTableReportDTO {
 
     @IsOptional()
     deviceNames: string[];
+
+    @IsString()
+    @IsOptional()
+    minMaxValues: string;
 }
