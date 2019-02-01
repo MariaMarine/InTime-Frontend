@@ -1,12 +1,27 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
-        <agm-marker *ngFor= "let device of markers"
-        [latitude]="device.latitude" [longitude]="device.longitude"
-        [title]="device.name">
-        <agm-info-window #infoWindow>
-                <div>
-                <p>Device name: <strong>{{device.name}}</strong><br>Latitude: <strong>{{device.latitude}}</strong><br>Longitude: <strong>{{device.longitude}}</strong><br>
-                </p>
-                </div>
-        </agm-info-window>
-        </agm-marker>
-</agm-map>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+  fullScreen="false">
+ <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div *ngIf="this.display">
+ <agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
+    <agm-marker *ngFor="let device of markers" [latitude]="device.latitude" [longitude]="device.longitude" [title]="device.name">
+      <agm-info-window #infoWindow>
+        <div>
+          <p>Device name: <strong>{{device.name}}</strong><br>Latitude: <strong>{{device.latitude}}</strong><br>Longitude:
+            <strong>{{device.longitude}}</strong><br>
+          </p>
+        </div>
+      </agm-info-window>
+    </agm-marker>
+    <agm-polyline [editable]="true">
+      <agm-polyline-point *ngFor="let point of markers" [latitude]="+point.latitude" [longitude]="+point.longitude">
+      </agm-polyline-point>
+    </agm-polyline>
+    <agm-direction *ngFor="let dest of destinations; let i = index" [destination]="destinations[i].des" [origin]="destinations[i].org"
+      [markerOptions]="markerOptions" [renderOptions]="renderOptions"></agm-direction>
+ </agm-map>
+</div>

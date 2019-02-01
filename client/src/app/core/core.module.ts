@@ -11,6 +11,7 @@ import { AuthRouteActivatorService } from './guards/auth-route-activator.service
 import { AdminRouteActivatorService } from './guards/admin-route-activator.service';
 import { ReportsResolverService } from './reports-resolver.service';
 import { ChartsResolverService } from './charts-resolver.service';
+import { UserService } from './user.service';
 
 @NgModule({
   providers: [
@@ -25,7 +26,8 @@ import { ChartsResolverService } from './charts-resolver.service';
     JwtService,
     ReportsResolverService,
     DeviceResolverService,
-    ChartsResolverService
+    ChartsResolverService,
+    UserService
   ]
 })
 export class CoreModule {

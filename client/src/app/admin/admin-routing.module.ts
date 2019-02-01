@@ -3,6 +3,7 @@ import { DevicesComponent } from './devices/devices.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AdminRouteActivatorService } from '../core/guards/admin-route-activator.service';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -10,6 +11,11 @@ const routes: Routes = [
   {
     path: 'devices',
     component: DevicesComponent,
+    canActivate: [AuthRouteActivatorService, AdminRouteActivatorService]
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
     canActivate: [AuthRouteActivatorService, AdminRouteActivatorService]
   }
 ];

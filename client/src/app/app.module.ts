@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import 'hammerjs';
 import { EditProfileComponent } from './profile/edit-profile.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({

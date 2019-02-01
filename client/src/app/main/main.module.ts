@@ -21,6 +21,8 @@ import { AgmCoreModule } from '@agm/core';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import 'hammerjs';
 import { TableMapService } from '../core/tableToMap.service';
+import { AgmDirectionModule } from 'agm-direction';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { TableMapService } from '../core/tableToMap.service';
     ReactiveFormsModule, NgbModule, MultiSelectModule, TabStripModule, ChartModule,
     Daterangepicker, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC6K_3lElV3AD48s-1ZyQM74GsFw7qC9S8'
-    })],
+    }), AgmDirectionModule, NgxSpinnerModule ],
   providers: [TableMapService],
   exports: [MainComponent, MapComponent]
 })
