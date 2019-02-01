@@ -21,6 +21,7 @@ import { ChartsModule } from '@progress/kendo-angular-charts';
 import 'hammerjs';
 import { EditProfileComponent } from './profile/edit-profile.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { SpinnerInterceptor } from './interceptors/spinner-interceptor.service';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserAnimationsModule,
     NotificationModule,
     ChartsModule,
+    NgxSpinnerModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -55,6 +57,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   {
     provide: HTTP_INTERCEPTORS,
     useClass: ServerErrorInterceptor,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: SpinnerInterceptor,
     multi: true
   }],
   bootstrap: [AppComponent]

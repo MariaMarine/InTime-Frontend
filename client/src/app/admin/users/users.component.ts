@@ -38,17 +38,6 @@ export class UsersComponent implements OnInit {
         this.view = this.editService.pipe(map(data => process(data, this.gridState)));
         this.editService.read();
     }
-
-    public register(): void {
-        this.authService.registerUser(this.formGroup.value)
-        .subscribe(res => {
-        this.notificationService.show('Successful registration!', 'success');
-        },
-        (err: HttpErrorResponse) => {
-        (err.status === 400) ? this.notificationService.show('Invalid email or password', 'error')
-            : this.notificationService.show(`User already exists`, 'error');
-        });
-    }
     public onStateChange(state: State) {
         this.gridState = state;
         this.editService.read();
@@ -68,16 +57,6 @@ export class UsersComponent implements OnInit {
     public cancelHandler({sender, rowIndex}) {
         this.closeEditor(sender, rowIndex);
     }
-
-    // public editHandler({sender, rowIndex, dataItem}) {
-    //     this.closeEditor(sender);
-    //     this.formGroup = new FormGroup({
-    //         'eamil': new FormControl(dataItem.email),
-    //         'password': new FormControl(dataItem.password),
-    //     });
-    //     this.editedRowIndex = rowIndex;
-    //     sender.editRow(rowIndex, this.formGroup);
-    // }
 
     public saveHandler({sender, rowIndex, formGroup}) {
         const device: UserModel = formGroup.value;

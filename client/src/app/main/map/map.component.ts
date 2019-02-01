@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { TableMapService } from '../../core/tableToMap.service';
 import { Device } from '../../models/deviceModel';
