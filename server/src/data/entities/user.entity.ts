@@ -1,11 +1,19 @@
+import { MailService } from './../../mailer/mailer';
 import { ChartReport } from './chart-report.entity';
-import { Column, PrimaryGeneratedColumn, Entity, ManyToMany, JoinTable, ManyToOne, OneToMany } from 'typeorm';
+import { Column, PrimaryGeneratedColumn, Entity, ManyToMany, JoinTable, ManyToOne, OneToMany, AfterInsert } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import { Device } from './device.entity';
 import { TableReport } from './table-report.entity';
 
 @Entity({ name: 'users' })
 export class User {
+
+    @AfterInsert()
+    mail(){
+        const mailer = new MailService();
+        mailer.mail(this.email);
+    }
+
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
