@@ -56,6 +56,7 @@ export class UsersController {
       whitelist: true,
     }))
     user: UserPasswordDTO): Promise<string> {
+      console.log(user);
     try {
       await this.usersService.changePassword(user, req);
       return JSON.stringify('Password successfully changed');

@@ -8,7 +8,7 @@ import { ReportsComponent } from './reports/table-reports/reports.component';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MainComponent implements OnInit, AfterViewInit {
 
   mapLoaded: boolean;
   @ViewChild(MapComponent) leaflet;

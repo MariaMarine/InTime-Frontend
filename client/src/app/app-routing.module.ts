@@ -1,3 +1,4 @@
+import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { NotFoundComponent } from './errors/not-found.component';
 import { AuthRouteActivatorService } from './core/guards/auth-route-activator.service';
@@ -6,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ServerErrorComponent } from './errors/server-error.component';
-import { ProfileComponent } from './profile/profile.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
