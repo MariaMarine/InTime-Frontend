@@ -5,7 +5,7 @@ import { NavbarService } from '../core/navbar.service';
   selector: 'app-server-error',
   templateUrl: './server-error.component.html'
 })
-export class ServerErrorComponent implements OnInit, OnDestroy {
+export class ServerErrorComponent implements OnInit {
 
 
   constructor(private readonly nav: NavbarService) { }
@@ -14,8 +14,5 @@ export class ServerErrorComponent implements OnInit, OnDestroy {
     this.nav.show();
   }
 
-  ngOnDestroy() {
-    this.nav.hide();
-  }
 
 }

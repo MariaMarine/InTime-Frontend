@@ -13,6 +13,10 @@ export class AuthService {
     this.hasToken()
   );
 
+  private readonly isAdminInSubject$ = new BehaviorSubject<boolean>(
+    this.isAdmin()
+  );
+
   public constructor(
     private readonly storageService: StorageService,
     private readonly requester: RequesterService,
@@ -24,6 +28,9 @@ export class AuthService {
     return this.isLoggedInSubject$.asObservable();
   }
 
+  public get isAdmin$(): Observable<boolean> {
+    return this.isAdminInSubject$.asObservable();
+  }
 
   public registerUser(user: UserModel): Observable<any> {
     if ( this.hasToken() ) {
@@ -46,23 +53,31 @@ export class AuthService {
         tap(response => {
           this.storageService.setItem('token', (<any>response));
           this.isLoggedInSubject$.next(true);
+          this.isAdmin ? this.isAdminInSubject$.next(true) : this.isAdminInSubject$.next(false);
         })
       );
   }
 
   public logoutUser() {
     this.storageService.removeItem('token');
-    return this.isLoggedInSubject$.next(false);
+    return this.setLoggedOutStatus();
   }
 
+  private setLoggedOutStatus () {
+    this.isLoggedInSubject$.next(false);
+    this.isAdminInSubject$.next(false);
+  }
   public getUsername(): string {
     const token = this.decodeToken();
     return token.email;
   }
 
   public isAdmin(): boolean {
-    const token = this.decodeToken();
-    return token.isAdmin;
+ if (this.isLoggedInSubject$.value === true ) {
+        const token = this.decodeToken();
+        return token.isAdmin;
+      }
+      return false;
   }
   private hasToken(): boolean {
     return !!this.storageService.getItem('token');

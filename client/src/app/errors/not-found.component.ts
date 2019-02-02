@@ -5,15 +5,10 @@ import { NavbarService } from '../core/navbar.service';
   selector: 'app-notfound-error',
   templateUrl: './not-found.component.html'
 })
-export class NotFoundComponent implements OnInit, OnDestroy {
+export class NotFoundComponent implements OnInit {
 
   constructor(private readonly nav: NavbarService) { }
 
   ngOnInit() {
-    this.nav.show();
-  }
-
-  ngOnDestroy() {
-    this.nav.hide();
   }
 }

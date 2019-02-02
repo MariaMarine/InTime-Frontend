@@ -13,7 +13,7 @@ import { NavbarService } from 'src/app/core/navbar.service';
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.css']
 })
-export class DevicesComponent implements OnInit, OnDestroy {
+export class DevicesComponent implements OnInit {
     public view: Observable<GridDataResult>;
     public gridState: State = {
         sort: [],
@@ -33,13 +33,8 @@ export class DevicesComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.nav.show();
         this.view = this.editService.pipe(map(data => process(data, this.gridState)));
         this.editService.read();
-    }
-
-    public ngOnDestroy(): void {
-        this.nav.hide();
     }
     public onStateChange(state: State) {
         this.gridState = state;
@@ -50,20 +45,20 @@ export class DevicesComponent implements OnInit, OnDestroy {
         this.closeEditor(sender);
 
         this.formGroup = new FormGroup({
-            'name': new FormControl('', Validators.required),
-            'longitude': new FormControl('', Validators.required),
-            'latitude': new FormControl('', Validators.required),
+            'name': new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]),
+            'longitude': new FormControl('', [Validators.required, Validators.min(-180), Validators.max(180)]),
+            'latitude': new FormControl('', [Validators.required, Validators.min(-90), Validators.max(90)]),
         });
         sender.addRow(this.formGroup);
-    }
+    } 
 
     public editHandler({sender, rowIndex, dataItem}) {
         this.closeEditor(sender);
         this.formGroup = new FormGroup({
             'id': new FormControl(dataItem.id),
-            'name': new FormControl(dataItem.name),
-            'longitude': new FormControl(dataItem.longitude),
-            'latitude': new FormControl(dataItem.latitude),
+            'name': new FormControl(dataItem.name, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]),
+            'longitude': new FormControl(dataItem.longitude, [Validators.required, Validators.min(-180), Validators.max(180)]),
+            'latitude': new FormControl(dataItem.latitude, [Validators.required, Validators.min(-90), Validators.max(90)]),
         });
         this.editedRowIndex = rowIndex;
         sender.editRow(rowIndex, this.formGroup);

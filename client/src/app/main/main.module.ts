@@ -20,9 +20,7 @@ import { ChartModule } from '@progress/kendo-angular-charts';
 import { AgmCoreModule } from '@agm/core';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import 'hammerjs';
-import { TableMapService } from '../core/tableToMap.service';
 import { AgmDirectionModule } from 'agm-direction';
-//import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [

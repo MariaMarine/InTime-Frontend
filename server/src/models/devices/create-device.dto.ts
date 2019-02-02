@@ -1,15 +1,15 @@
 
-import { IsString, Length, IsOptional } from 'class-validator';
+import { IsString, Length, IsOptional, IsNumberString } from 'class-validator';
 
 export class CreateDeviceDTO {
     @IsString()
-    @Length(3, 100)
+    @Length(1, 20)
     readonly name: string;
-    @IsString()
-    @Length(3, 100)
+    @IsNumberString()
+    @Length(1, 10)
     readonly longitude: string;
-    @IsString()
-    @Length(3, 100)
+    @IsNumberString()
+    @Length(1, 10)
     readonly latitude: string;
 
 }

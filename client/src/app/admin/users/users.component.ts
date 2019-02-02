@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   selector: 'app-users',
   templateUrl: './users.component.html'
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class UsersComponent implements OnInit {
 
     public view: Observable<GridDataResult>;
     public gridState: State = {
@@ -39,13 +39,7 @@ export class UsersComponent implements OnInit, OnDestroy {
                 });
             });
     }
-
-    public ngOnDestroy(): void {
-        this.nav.hide()
-    }
-
     public ngOnInit(): void {
-        this.nav.show();
         this.view = this.editService.pipe(map(data => process(data, this.gridState)));
         this.editService.read();
     }

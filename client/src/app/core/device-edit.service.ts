@@ -44,7 +44,7 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
                         },
                         (err: HttpErrorResponse) => {
                             (err.status === 409) ? this.notificator.show('Device already exists!', 'error')
-                            : this.notificator.show('Device properties must be at least 3 characters long', 'error');
+                            : this.notificator.show('Invalid latitude or longitude', 'error');
                             this.read();
                         });
             this.reset();
@@ -58,7 +58,7 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
                         },
                         (err: HttpErrorResponse) => {
                             (err.status === 409) ? this.notificator.show('Device already exists!', 'error')
-                            : this.notificator.show('Device properties must be at least 3 characters long', 'error');
+                            : this.notificator.show('Invalid latitude or longitude', 'error');
                             this.read();
                         });
             this.reset();

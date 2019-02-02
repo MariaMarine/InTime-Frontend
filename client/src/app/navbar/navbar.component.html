@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info" *ngIf="nav.visible">
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
   <a class="navbar-brand" [routerLink]="['/home']">In-time</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,18 +8,21 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/main']" [routerLinkActive]="'active'">Reports</a>
+          <a class="nav-link" *ngIf="(this.isLoggedIn() | async)" [routerLink]="['/main']" [routerLinkActive]="'active'">Reports</a>
         </li>
-      <li class="nav-item" *ngIf="this.isAdmin()">
+      <li class="nav-item" *ngIf="((this.isAdmin() | async))">
         <a class="nav-link" [routerLink]="['/admin/devices']" [routerLinkActive]="'active'">Devices</a>
       </li>
-      <li class="nav-item" *ngIf="this.isAdmin()">
+      <li class="nav-item" *ngIf="((this.isAdmin() | async))">
         <a class="nav-link" [routerLink]="['/admin/users']" [routerLinkActive]="'active'">Users</a>
       </li>
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item" *ngIf="!(this.isLoggedIn() | async)">
             <a class="nav-link" [routerLink]="['/login']" [routerLinkActive]="'active'">Login</a>
+          </li>
+        <li class="nav-item" *ngIf="!(this.isLoggedIn() | async)">
+            <a class="nav-link" [routerLink]="['/register']" [routerLinkActive]="'active'">Register</a>
           </li>
         <li class="nav-item" *ngIf="(this.isLoggedIn() | async)">
             <a class="nav-link" [routerLink]="['/profile']" [routerLinkActive]="'active'">{{this.getUserName()}}</a>

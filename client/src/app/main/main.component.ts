@@ -19,13 +19,8 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.mapLoaded = false;
-    this.nav.show();
-
   }
 
-  ngOnDestroy(): void {
-    this.nav.hide();
-  }
   ngAfterViewInit(): void {
     this.mapLoaded = true;
   }

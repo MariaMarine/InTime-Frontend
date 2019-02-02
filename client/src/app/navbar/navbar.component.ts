@@ -18,6 +18,9 @@ export class NavbarComponent implements OnInit {
   public isLoggedIn(): Observable<boolean> {
         return this.auth.isLoggedIn$;
           }
+  public isAdmin(): Observable<boolean> | boolean {
+        return this.auth.isAdmin$;
+          }
 
   logOut(): void {
     this.auth.logoutUser();
@@ -28,9 +31,6 @@ export class NavbarComponent implements OnInit {
     return this.auth.getUsername();
   }
 
-  isAdmin(): boolean {
-    return this.auth.isAdmin();
-  }
   ngOnInit() {
   }
 }
