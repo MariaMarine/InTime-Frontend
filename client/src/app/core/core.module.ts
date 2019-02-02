@@ -1,3 +1,4 @@
+import { TableMapService } from './tableToMap.service';
 import { DeviceResolverService } from './device-resolver.service';
 import { JwtService } from './jwt.service';
 import { NotificatorService } from './notification.service';
@@ -12,6 +13,7 @@ import { AdminRouteActivatorService } from './guards/admin-route-activator.servi
 import { ReportsResolverService } from './reports-resolver.service';
 import { ChartsResolverService } from './charts-resolver.service';
 import { UserService } from './user.service';
+import { ChartMapService } from './chartToMap.service';
 
 @NgModule({
   providers: [
@@ -27,7 +29,9 @@ import { UserService } from './user.service';
     ReportsResolverService,
     DeviceResolverService,
     ChartsResolverService,
-    UserService
+    UserService,
+    TableMapService,
+    ChartMapService
   ]
 })
 export class CoreModule {

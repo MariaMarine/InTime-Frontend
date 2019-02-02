@@ -7,9 +7,11 @@
         (click)="deleteTable()"></span>
     <a href="/main#edit" class="k-icon k-i-pencil k-icon-64 k-icon-right" [ngClass]="{'pointer': !createMode, 'isDisabled': createMode}" 
         (click)="editTable()"></a>
+        <span class="k-icon k-i-marker-pin-target k-icon-64 k-icon-right k-icon-nofloat" 
+        [ngClass]="{'pointer': !createMode}" (click)="this.tableClick()"></span>
 </h4>
 
-<table (click)="this.tableClick()" *ngIf="toggled" class="table table-bordered table-hover" style="width:100%">
+<table  *ngIf="toggled" class="table table-bordered table-hover" style="width:100%">
     <thead class="thead-light">
         <tr>
             <th></th>

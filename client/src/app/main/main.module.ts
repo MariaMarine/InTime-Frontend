@@ -41,7 +41,7 @@ import { AgmDirectionModule } from 'agm-direction';
     Daterangepicker, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC6K_3lElV3AD48s-1ZyQM74GsFw7qC9S8'
     }), AgmDirectionModule],
-  providers: [TableMapService],
+  providers: [],
   exports: [MainComponent, MapComponent]
 })
 export class MainModule {}

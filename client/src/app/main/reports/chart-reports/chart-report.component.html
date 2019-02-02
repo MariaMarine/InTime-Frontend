@@ -7,6 +7,8 @@
         (click)="deleteTable()"></span>
     <a href="/main#edit" class="k-icon k-i-pencil k-icon-64 k-icon-right" [ngClass]="{'pointer': !createMode, 'isDisabled': createMode}"
         (click)="editTable()"></a>
+        <span class="k-icon k-i-marker-pin-target k-icon-64 k-icon-right k-icon-nofloat" 
+        [ngClass]="{'pointer': !createMode}" (click)="tableClick()"></span>
     <button *ngIf="toggled" class="btn btn-sm btn-outline-warning" (click)="exportScaledChart(char)">
             Export as PDF  </button>
 </h4>

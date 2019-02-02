@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TableMapService } from '../../core/tableToMap.service';
 import { Device } from '../../models/deviceModel';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ChartMapService } from '../../core/chartToMap.service';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class MapComponent implements OnInit {
 
     constructor(
         private readonly tableToMap: TableMapService,
+        private readonly chartToMap: ChartMapService,
         private spinner: NgxSpinnerService
     ) {}
 
@@ -57,6 +59,17 @@ export class MapComponent implements OnInit {
             }, 500 );
 
             });
+        this.chartToMap.chart$
+        .subscribe(data => {
+            this.markers = [data.origin, data.destination];
+            this.display = false;
+            this.destinations = [{ org: { lat: +data.origin.latitude, lng: +data.origin.longitude },
+                des: { lat: +data.destination.latitude, lng: +data.destination.longitude }}];
+            setTimeout(() => {
+                    this.display = true;
+                    this.spinner.hide();
+                }, 500 );
+        });
     }
 
 }

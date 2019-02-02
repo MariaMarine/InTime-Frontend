@@ -1,3 +1,4 @@
+import { ChartMapService } from './../../../core/chartToMap.service';
 import { Chart } from './../../../models/chartModel';
 import {
   Component,
@@ -38,7 +39,9 @@ export class ChartReportComponent implements OnInit {
   public startDates: number [];
   public series: any[];
   public categories: number[];
-  public constructor(private readonly requester: RequesterService) {}
+  public constructor(
+    private readonly chartToMap: ChartMapService,
+    private readonly requester: RequesterService) {}
 
   ngOnInit() {
     this.toggled = true;
@@ -48,6 +51,10 @@ export class ChartReportComponent implements OnInit {
     this.startDates = this.chart.startDates.map(date => date.dateInMilliseconds);
     const startDatesStr = this.startDates.join(',');
     this.call(origin, destination, period, startDatesStr);
+  }
+
+  public tableClick(): void {
+    this.chartToMap.emitChart(this.chart);
   }
 
   public deleteTable() {
