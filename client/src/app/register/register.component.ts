@@ -31,7 +31,11 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser(this.regForm.value)
     .subscribe(res => {
       this.notificationService.show('Successful registration!', 'success');
-      this.router.navigate(['/login']);
+      if (this.authService.isAdmin()){
+        this.router.navigate(['/admin/users'])
+      } else {
+        this.router.navigate(['/login']);
+      }
     },
     (err: HttpErrorResponse) => {
       (err.status === 400) ? this.notificationService.show('Invalid email or password', 'error')
@@ -41,6 +45,10 @@ export class RegisterComponent implements OnInit {
   }
 
   public cancel(): void {
-    this.router.navigate(['/home']);
+    if (this.authService.isAdmin()){
+      this.router.navigate(['/admin/users'])
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 }

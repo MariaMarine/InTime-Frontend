@@ -26,10 +26,17 @@ export class AuthService {
 
 
   public registerUser(user: UserModel): Observable<any> {
-    return this.requester.post(
-      'http://localhost:3000/register',
-      JSON.stringify(user)
-    );
+    if ( this.hasToken() ) {
+      return this.requester.post(
+        'http://localhost:3000/users',
+        JSON.stringify(user)
+      );
+    } else {
+      return this.requester.post(
+        'http://localhost:3000/register',
+        JSON.stringify(user)
+      );
+    }
   }
 
   public loginUser(user: UserModel): Observable<any> {

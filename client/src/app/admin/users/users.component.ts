@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
@@ -10,12 +10,14 @@ import { UserService } from '../../core/user.service';
 import { NotificatorService } from '../../core/notification.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserModel } from '../../models/userModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html'
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
+
     public view: Observable<GridDataResult>;
     public gridState: State = {
         sort: [],
@@ -30,7 +32,16 @@ export class UsersComponent implements OnInit {
         private readonly authService: AuthService,
         private readonly editService: UserService,
         private readonly nav: NavbarService,
-        private readonly notificationService: NotificatorService) {
+        private readonly notificationService: NotificatorService,
+        private readonly router: Router, private zone: NgZone) {
+            this.editService.subscribe((state) => {
+                this.zone.run(() => {
+                });
+            });
+    }
+
+    public ngOnDestroy(): void {
+        this.nav.hide()
     }
 
     public ngOnInit(): void {
@@ -44,13 +55,14 @@ export class UsersComponent implements OnInit {
     }
 
     public addHandler({sender}) {
-        this.closeEditor(sender);
+        this.router.navigate(['/register']);
+        // this.closeEditor(sender);
 
-        this.formGroup = new FormGroup({
-            'email': new FormControl('', [Validators.required, Validators.email]),
-            'password': new FormControl('', Validators.required),
-        });
-        sender.addRow(this.formGroup);
+        // this.formGroup = new FormGroup({
+        //     'email': new FormControl('', [Validators.required, Validators.email]),
+        //     'password': new FormControl('', Validators.required),
+        // });
+        // sender.addRow(this.formGroup);
     }
 
 
