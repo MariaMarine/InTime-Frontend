@@ -53,7 +53,7 @@ export class UsersService {
   }
 
   async getAll(admin: User) {
-    return await this.usersRepository.find({ where: { adminUser: admin } });
+    return await this.usersRepository.find({ where: { adminUser: admin, isAdmin: 0 } });
   }
 
   async addUser(user: UserRegisterDTO, admin: User) {
