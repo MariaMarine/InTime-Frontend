@@ -46,6 +46,7 @@ export class TableReportComponent implements OnInit {
 
   ngOnInit() {
     this.toggled = true;
+    this.table.devices.sort((a, b) => (+a.latitude - +b.latitude));
     const devices: string = this.table.devices.map(x => x.name).join(',');
     const endDate: number = Date.now();
     const startDate: number = endDate - (this.table.period * 3600 * 1000);
@@ -101,7 +102,7 @@ export class TableReportComponent implements OnInit {
       JSON.stringify(this.table)).subscribe(
         () => this.notificator.show('Settings updated', 'success'),
         () => this.notificator.show('Could not update settings', 'error'));
-    this.prefs.reset(); 
+    this.prefs.reset();
     this.cellSelected = false;
     }
   }
