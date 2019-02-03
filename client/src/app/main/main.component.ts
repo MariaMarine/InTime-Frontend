@@ -8,24 +8,17 @@ import { ReportsComponent } from './reports/table-reports/reports.component';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit {
 
-  mapLoaded: boolean;
-  @ViewChild(MapComponent) leaflet;
   reportsUpdate: boolean;
   chartsUpdate: boolean;
 
-   constructor(private readonly nav: NavbarService) { }
+   constructor() { }
 
   ngOnInit() {
-    this.mapLoaded = false;
   }
 
-  ngAfterViewInit(): void {
-    this.mapLoaded = true;
-  }
   receiveReportUpdate(event) {
-    console.log(event);
     this.reportsUpdate = event;
   }
   receiveChartUpdate (event) {
