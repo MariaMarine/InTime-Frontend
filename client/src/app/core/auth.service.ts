@@ -58,7 +58,7 @@ export class AuthService {
         tap(response => {
           this.storageService.setItem('token', (<any>response));
           this.isLoggedInSubject$.next(true);
-          this.isAdmin ? this.isAdminInSubject$.next(true) : this.isAdminInSubject$.next(false);
+          this.isAdminInSubject$.next(this.isAdmin());
         })
       );
   }
@@ -80,7 +80,7 @@ export class AuthService {
   public isAdmin(): boolean {
   if (this.isLoggedInSubject$.value === true ) {
         const token = this.decodeToken();
-        return token.isAdmin;
+        return token.isAdmin ;
       }
       return false;
   }
