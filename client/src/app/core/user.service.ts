@@ -76,7 +76,7 @@ export class UserService extends BehaviorSubject<any[]> {
                 });
     }
 
-    private reset() {
+    public reset() {
         this.data = [];
     }
 

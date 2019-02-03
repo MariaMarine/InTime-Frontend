@@ -13,7 +13,7 @@ import { NavbarService } from 'src/app/core/navbar.service';
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.css']
 })
-export class DevicesComponent implements OnInit {
+export class DevicesComponent implements OnInit, OnDestroy {
     public view: Observable<GridDataResult>;
     public gridState: State = {
         sort: [],
@@ -25,11 +25,8 @@ export class DevicesComponent implements OnInit {
     private editedRowIndex: number;
 
     constructor(private readonly editService: DeviceEditService,
-        private readonly nav: NavbarService, private zone: NgZone) {
-            this.editService.subscribe((state) => {
-                this.zone.run(() => {
-                });
-            });
+        private readonly nav: NavbarService) {
+
     }
 
     public ngOnInit(): void {
@@ -41,6 +38,10 @@ export class DevicesComponent implements OnInit {
         this.editService.read();
     }
 
+    public ngOnDestroy(): void {
+        this.editService.reset();
+    }
+
     public addHandler({sender}) {
         this.closeEditor(sender);
 
@@ -50,7 +51,7 @@ export class DevicesComponent implements OnInit {
             'latitude': new FormControl('', [Validators.required, Validators.min(-90), Validators.max(90)]),
         });
         sender.addRow(this.formGroup);
-    } 
+    }
 
     public editHandler({sender, rowIndex, dataItem}) {
         this.closeEditor(sender);

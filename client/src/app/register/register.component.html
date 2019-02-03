@@ -1,4 +1,5 @@
 <div class ="w-75 mx-auto">
+  <br>
   <h1 class="display-4">Register</h1>
   <div>
     <form [formGroup]="regForm" (ngSubmit)="this.register()">
@@ -9,7 +10,7 @@
 
       <div class="form-group">
           <label appBoldMe for="password">Password</label>
-          <input formControlName="password" required id="password" type="password" class="form-control" placeholder="password..." />
+          <input formControlName="password" required id="password" type="password" class="form-control" placeholder="Password..." />
       </div>
       <button [disabled]="regForm.invalid" type="submit" class="btn btn-info">Register</button>
       <button type="button" class="btn btn-default" (click)="this.cancel()">Cancel</button>

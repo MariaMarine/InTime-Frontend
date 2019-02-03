@@ -18,6 +18,7 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
     private data: any[] = [];
 
     public read() {
+
         if (this.data.length) {
             return super.next(this.data);
         }
@@ -33,8 +34,6 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
             });
     }
 
-    // Add front end validation for lat/long?
-    // Auth/403?
     public save(data: any, isNew?: boolean) {
         if (isNew) {
             this.http.post('http://localhost:3000/devices', JSON.stringify(data))
@@ -82,7 +81,7 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
                 });
     }
 
-    private reset() {
+    public reset() {
         this.data = [];
     }
 
