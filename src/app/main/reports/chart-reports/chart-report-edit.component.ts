@@ -104,8 +104,8 @@ import { Chart } from 'src/app/models/chartModel';
         } else {
             const action = this.modifyMode ? `updated` : `created`;
             const request = this.modifyMode ? this.http.put
-                (`http://localhost:3000/chart-reports/${this.currentChart.id}`, JSON.stringify(this.routeForm.value))
-                : this.http.post('http://localhost:3000/chart-reports', JSON.stringify(this.routeForm.value));
+                (`https://intime-backend-server.herokuapp.com/chart-reports/${this.currentChart.id}`, JSON.stringify(this.routeForm.value))
+                : this.http.post('https://intime-backend-server.herokuapp.com/chart-reports', JSON.stringify(this.routeForm.value));
             request.subscribe(() => {
                 this.notificationService.show(`Report ${action}!`, 'success');
                 this.editComplete = true;

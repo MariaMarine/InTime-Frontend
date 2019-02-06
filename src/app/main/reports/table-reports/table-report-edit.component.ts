@@ -46,8 +46,8 @@ import { Table } from 'src/app/models/tableModel';
     public createRoute() {
         const action = this.modifyMode ? `updated` : `created`;
         const request = this.modifyMode ? this.http.put
-            (`http://localhost:3000/table-reports/${this.currentTable.id}`, JSON.stringify(this.routeForm.value))
-            : this.http.post('http://localhost:3000/table-reports', JSON.stringify(this.routeForm.value));
+            (`https://intime-backend-server.herokuapp.com/table-reports/${this.currentTable.id}`, JSON.stringify(this.routeForm.value))
+            : this.http.post('https://intime-backend-server.herokuapp.com/table-reports', JSON.stringify(this.routeForm.value));
         request.subscribe(() => {
             this.notificationService.show(`Report ${action}!`, 'success');
             this.editComplete = true;

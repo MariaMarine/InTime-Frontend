@@ -12,7 +12,7 @@ export class ReportsResolverService implements Resolve<Observable<any>> {
   public resolve(): Observable<any> {
     return this.http
       .get(
-        `http://localhost:3000/table-reports`
+        `https://intime-backend-server.herokuapp.com/table-reports`
       );
   }
 }

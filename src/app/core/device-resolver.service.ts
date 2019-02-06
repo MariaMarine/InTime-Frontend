@@ -11,7 +11,7 @@ export class DeviceResolverService implements Resolve<Observable<any>> {
   public resolve(): Observable<any> {
     return this.http
       .get(
-        `http://localhost:3000/devices`
+        `https://intime-backend-server.herokuapp.com/devices`
       );
   }
 }

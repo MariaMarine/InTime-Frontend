@@ -40,12 +40,12 @@ export class AuthService {
   public registerUser(user: UserModel): Observable<any> {
     if ( this.hasToken() ) {
       return this.requester.post(
-        'http://localhost:3000/users',
+        'https://intime-backend-server.herokuapp.com/users',
         JSON.stringify(user)
       );
     } else {
       return this.requester.post(
-        'http://localhost:3000/register',
+        'https://intime-backend-server.herokuapp.com/register',
         JSON.stringify(user)
       );
     }
@@ -53,7 +53,7 @@ export class AuthService {
 
   public loginUser(user: UserModel): Observable<any> {
     return this.requester
-      .post('http://localhost:3000/login', JSON.stringify(user))
+      .post('https://intime-backend-server.herokuapp.com/login', JSON.stringify(user))
       .pipe(
         tap(response => {
           this.storageService.setItem('token', (<any>response));
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   public changePass (pass: any) {
-    return this.requester.put('http://localhost:3000/users', pass).subscribe(
+    return this.requester.put('https://intime-backend-server.herokuapp.com/users', pass).subscribe(
       res => {
         this.notificationService.show('Password changed!', 'success');
         this.router.navigate(['/main']);

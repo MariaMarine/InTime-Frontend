@@ -54,7 +54,7 @@ export class ChartsComponent implements OnInit {
   }
 
   private refresh() {
-    return this.http.get('http://localhost:3000/chart-reports')
+    return this.http.get('https://intime-backend-server.herokuapp.com/chart-reports')
       .subscribe((res: Chart[]) => {
       this.chartReports = res;
     });

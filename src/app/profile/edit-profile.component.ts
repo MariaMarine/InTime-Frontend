@@ -42,6 +42,6 @@ export class EditProfileComponent implements OnInit {
     }
 
     save() {
-        this.http.put('http://localhost:3000/users', {});
+        this.http.put('https://intime-backend-server.herokuapp.com/users', {});
     }
 }

@@ -36,7 +36,7 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
 
     public save(data: any, isNew?: boolean) {
         if (isNew) {
-            this.http.post('http://localhost:3000/devices', JSON.stringify(data))
+            this.http.post('https://intime-backend-server.herokuapp.com/devices', JSON.stringify(data))
                     .subscribe(() => {
                         this.notificator.show('Device added!', 'success');
                         this.read();
@@ -50,7 +50,7 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
             this.fetch(data)
                 .subscribe(() => this.read(), () => this.read());
         } else {
-            this.http.put(`http://localhost:3000/devices/${data.id}`, JSON.stringify(data))
+            this.http.put(`https://intime-backend-server.herokuapp.com/devices/${data.id}`, JSON.stringify(data))
                     .subscribe(() => {
                         this.notificator.show('Device updated!', 'success');
                         this.read();
@@ -67,7 +67,7 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
     }
 
     public remove(data: any) {
-        this.http.delete(`http://localhost:3000/devices/${data.id}`)
+        this.http.delete(`https://intime-backend-server.herokuapp.com/devices/${data.id}`)
         .subscribe();
         this.reset();
         this.fetch(data)
@@ -87,7 +87,7 @@ export class DeviceEditService extends BehaviorSubject<any[]> {
 
     private fetch(data?: any): Observable<any[]> {
         return this.http
-            .get('http://localhost:3000/devices')
+            .get('https://intime-backend-server.herokuapp.com/devices')
             .pipe(map(res => <any[]>res));
     }
 

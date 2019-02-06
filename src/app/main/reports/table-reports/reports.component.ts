@@ -53,7 +53,7 @@ export class ReportsComponent implements OnInit {
   }
 
   private refresh() {
-    return this.http.get('http://localhost:3000/table-reports')
+    return this.http.get('https://intime-backend-server.herokuapp.com/table-reports')
       .subscribe((res: Table[]) => {
         this.tableReports = res;
       });

@@ -38,7 +38,7 @@ export class UserService extends BehaviorSubject<any[]> {
     }
 
     public save(data: any) {
-            this.http.post('http://localhost:3000/users', JSON.stringify(data))
+            this.http.post('https://intime-backend-server.herokuapp.com/users', JSON.stringify(data))
                     .subscribe(() => {
                         this.notificator.show('User added!', 'success');
                         this.read();
@@ -55,7 +55,7 @@ export class UserService extends BehaviorSubject<any[]> {
 
     public remove(data: any) {
         console.log(data);
-        this.http.delete(`http://localhost:3000/users/${data.id}`)
+        this.http.delete(`https://intime-backend-server.herokuapp.com/users/${data.id}`)
         .subscribe(() => {
             if (data.isAdmin) {
                 this.notificator.show('Bye!', 'success');
@@ -82,7 +82,7 @@ export class UserService extends BehaviorSubject<any[]> {
 
     private fetch(data?: any): Observable<any[]> {
         return this.http
-            .get('http://localhost:3000/users')
+            .get('https://intime-backend-server.herokuapp.com/users')
             .pipe(map(res => <any[]>res));
     }
 

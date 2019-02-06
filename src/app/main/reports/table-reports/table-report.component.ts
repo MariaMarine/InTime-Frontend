@@ -98,7 +98,7 @@ export class TableReportComponent implements OnInit {
     this.userPrefs[this.origin][this.destination]['min'] = this.prefs.value.min;
     this.userPrefs[this.origin][this.destination]['max'] = this.prefs.value.max;
     this.table.minMaxValues = this.userPrefs;
-    this.requester.put(`http://localhost:3000/table-reports/${this.table.id}`,
+    this.requester.put(`https://intime-backend-server.herokuapp.com/table-reports/${this.table.id}`,
       JSON.stringify(this.table)).subscribe(
         () => this.notificator.show('Settings updated', 'success'),
         () => this.notificator.show('Could not update settings', 'error'));
@@ -133,7 +133,7 @@ export class TableReportComponent implements OnInit {
   }
   public deleteTable() {
     if (!this.createMode) {
-    this.requester.delete(`http://localhost:3000/table-reports/${this.table.id}`)
+    this.requester.delete(`https://intime-backend-server.herokuapp.com/table-reports/${this.table.id}`)
       .subscribe(res => {
         this.editComplete = true;
         this.edited.emit(this.editComplete);

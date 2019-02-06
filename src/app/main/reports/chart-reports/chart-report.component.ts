@@ -59,7 +59,7 @@ export class ChartReportComponent implements OnInit {
 
   public deleteTable() {
     if (!this.createMode) {
-    this.requester.delete(`http://localhost:3000/chart-reports/${this.chart.id}`)
+    this.requester.delete(`https://intime-backend-server.herokuapp.com/chart-reports/${this.chart.id}`)
       .subscribe(res => {
         this.editComplete = true;
         this.edited.emit(this.editComplete);
