@@ -12,12 +12,12 @@ import { ChartMapService } from '../../core/chartToMap.service';
 })
 export class MapComponent implements OnInit {
 
-    private lat = 42.698334;
-    private lng = 23.319941;
-    private markers: Device[] = [];
+    public lat = 42.698334;
+    public lng = 23.319941;
+    public markers: Device[] = [];
 
-    private destinations: {}[] = [];
-    private waypoints: {}[] = [];
+    public destinations: {}[] = [];
+    public waypoints: {}[] = [];
 
     public display = true;
 
