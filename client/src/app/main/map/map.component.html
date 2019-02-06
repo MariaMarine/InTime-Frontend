@@ -9,10 +9,12 @@
         </div>
       </agm-info-window>
     </agm-marker>
+    <!--
     <agm-polyline [editable]="true">
       <agm-polyline-point *ngFor="let point of markers" [latitude]="+point.latitude" [longitude]="+point.longitude">
       </agm-polyline-point>
     </agm-polyline>
+    -->
     <agm-direction *ngFor="let dest of destinations; let i = index" [destination]="destinations[i].des" [origin]="destinations[i].org"
       [markerOptions]="markerOptions" [renderOptions]="renderOptions"></agm-direction>
  </agm-map>

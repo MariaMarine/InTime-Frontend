@@ -6,7 +6,6 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NotificatorService } from 'src/app/core/notification.service';
 import { RequesterService } from 'src/app/core/reqester.service';
 import { Chart } from 'src/app/models/chartModel';
-import { DaterangepickerConfig } from 'ng2-daterangepicker';
 
 @Component({
     selector: 'app-chart-report-edit',
