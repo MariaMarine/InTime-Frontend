@@ -66,19 +66,24 @@ Team 8 Final Project Assignment
 - Table reports can be edited by clicking on the pencil icon. The edit form is prepopulated with the current data for the report. Users can change the name, period, add and remove devices and save the updated report (or cancel any changes). 
 - Table reports' devices position can be visualized on the map by clicking on the pin icon.
 - Users can set minimum and maximum expected travel time for a route by clicking on the corresponding cell in the table report. Travel time exceeding the maximum is visualized in red, travel time within limits but exceeding the average expected time is visualized in yellow, travel time within limits and not exceeding the average expected time is visualized in green and travel time that does not reach to the minimum expected time is visualized in darkgrey. Cells that do not have a set min/max expected travel time do not have a background.
+<br><img src="./screenshots/minmax.jpg"><br>
 
 ## Multiperiod chart reports
 - Create chart form: users can input a name, select origin and destination amongst the devices registered by their admin and select a date-time range for the report. Users can then add multiple other starting dates/times to compare travel time data for the same route over the same length of time. To ensure that comparisons are always done over the same length of time the duration is automatically calculated for the first date-time range selected and is then added on to each additional starting date.
+<br><img src="./screenshots/create_chart.jpg"><br>
 - Travel time data between origin and destination is visualized as a coloured line for each of the periods selected, with a legend on the bottom of the chart. Users can toggle one or more of the lines on and off. Users can zoom in and scroll within the charts.
 - The Y axis of the chart represents travel time in minutes, while the X axis represents the period. Labels on the X axis are generated depending on the duration of the comparison periods - reports spanning up to 2 hours have labels for each 15 minute period, while reports with a longer span have labels on every hour.
+<br><img src="./screenshots/charts.jpg"><br>
 - Chart reports can be toggled on and off by clicking on the chevron icon.
 - Chart reports can be deleted by clicking on the bin icon.
 - Chart reports can be edited by clicking on the pencil icon. The edit form is prepopulated with the current data for the report. Users can change the name, origin, destination, date-time range, as well as add and remove additional starting dates, and save the updated report (or cancel any changes).
+<br><img src="./screenshots/edit_chart.jpg"><br>
 - Table reports' devices position can be visualized on the map by clicking on the pin icon.
 - Users can export a chart report as a pdf.
 
 ## Misc pages
 - Entering an invalid url results in a redirect to a custom error page.
+<br><img src="./screenshots/notfound.jpg" width="50%"><img src="./screenshots/error.jpg" width="50%"><br>
 - In the event of a server error, users will see a custom error page. 
 
 # Built with:
