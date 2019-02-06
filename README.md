@@ -3,28 +3,27 @@
 Telerik Academy Alpha JavaScript Aug'18 Track <br>
 Team 8 Final Project Assignment
 
-## Contributors
-[Maria Marinova](https://gitlab.com/Marinova)
-<br>
-[Stefan Georgiev](https://gitlab.com/StefanGeorgiev)
-
 ## Project Description
 > The InTime web app visualizes travel time between preselected intersections over a certain period.
 > It relies on data from hardware installed at various key points that detects drivers’ mobile devices and then calculates the travel time between the different points.
 > The goal of the InTime web app is to provide traffic engineers with a highly customizeable summary of the raw data relevant to their needs.
 
 
-# Project Features
-
-####  Features by **access type**:<br>
+# Table of contents
+###  **Project Features**<br>
 1. [Public Part](#public-part) <br>
 1. [Admin Part](#admin-part) <br>
 1. [User Part](#user-part) <br>
 2. [Misc pages](#misc-pages) <br>
 
-####  Detailed description of **reports**:<br>
+###  **Reports usage**<br>
 1. [Multipoint route table reports](#multipoint-route-table-reports)
-1. [Multiperiod chart reports](multiperiod-chart-reports)
+1. [Multiperiod chart reports](#multiperiod-chart-reports)
+
+### **Info**<br>
+1. [Built with](#built-with)
+2. [Contributors](#contributors)
+1. [License](#license)
 
 
 ## Public Part
@@ -86,6 +85,30 @@ Team 8 Final Project Assignment
 <br><img src="./screenshots/notfound.jpg" width="50%"><img src="./screenshots/error.jpg" width="50%"><br>
 - In the event of a server error, users will see a custom error page. 
 
-# Built with:
+# Built with
+- [NestJS](https://nestjs.com/)<br>
+- [TypeORM](http://typeorm.io/#/)<br>
+- [MariaDB](https://mariadb.org/)<br>
+- [Angular 7](https://angular.io/)<br>
+- [Bootstrap 4](https://getbootstrap.com/)<br>
+- [ng-bootstrap](https://ng-bootstrap.github.io/#/home)<br>
+- [Kendo UI for Angular](https://www.telerik.com/kendo-angular-ui)<br>
+- [ng2-daterangepicker](https://www.npmjs.com/package/ng2-daterangepicker)<br>
+- [agm-direction](https://www.npmjs.com/package/agm-direction)<br>
+- [Rhythm Engineering API](http://ec2-35-158-53-19.eu-central-1.compute.amazonaws.com:8080/)
 
-# License:
+# Contributors
+[Maria Marinova](https://gitlab.com/Marinova)
+<br>
+[Stefan Georgiev](https://gitlab.com/StefanGeorgiev)
+
+# License
+> This project is licensed under the MIT License
+> 
+> Copyright 2019
+> 
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+> 
+> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+> 
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
