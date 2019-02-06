@@ -28,6 +28,7 @@ Team 8 Final Project Assignment
 
 
 ## Public Part
+<img src="./screenshots/home.jpg"><br>
 - Homepage with a carousel of inspirational images/text
 - Navbar with register and login functionality
 - Registration form is available to any user who wants to get a feel of how the web app works
