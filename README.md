@@ -31,28 +31,36 @@ Team 8 Final Project Assignment
 <img src="./screenshots/home.jpg"><br>
 - Homepage with a carousel of inspirational images/text
 - Navbar with register and login functionality
+<br><img src="./screenshots/register.jpg" width="50%"><img src="./screenshots/login.jpg"  width="50%"><br>
 - Registration form is available to any user who wants to get a feel of how the web app works
 
 ## Admin Part
 
 > After authentication, admin users are authorized to view and access the admin sections of the web app (Devices section and Users section) through the navbar menu. 
 - Devices section: admin users can add, remove and edit devices and their details (name, latitude, longitude). The list of devices can be sorted in ascending/descending order.
+<br><img src="./screenshots/devices.jpg"><br>
 - Users section: admins can create or remove accounts for view users. The list of users can be sorted in ascending/descending order. 
- - Profile page: admin users can change their password  
- - Reportings section: admin users can create, edit, view and delete reports as well as vidualize the different routes on the maps. See more on Reports.
+<br><img src="./screenshots/users.jpg"><br>
+ - Profile page: admin users can change their own password  
+ - Reportings section: admin users can create, edit, view and delete reports as well as vidualize the different routes on the maps. [See more on Reports.](#reports)
 
 ## User Part
 > When an admin creates a view user's account, the user receives login instructions via an automatically generated email. Upon authentication, users can access their Profile page and the Reportings section through the navbar menu.
-- Profile page: users can change their password                                        
-- Reportings section: users can create, edit, view and delete reports as well as visualize the different routes on the maps.
+
+- Profile page: users can change their own password                                        
+<br><img src="./screenshots/profile.jpg"><br>
+- Reportings section: users can create, edit, view and delete reports as well as visualize the different routes on the maps. [See more on Reports.](#reports)
 - View users cannot access the Devices and Users Sections (but can view available devices through the Reportings section).
 
 # Reports
 > The reports overview page is split in two responsive panes: map view on the left and a reports tab on the right. Users can collapse one of the panes or drag the splitter to a screen position of their choice.
 
 ## Multipoint route table reports
+
 - Create table form: users can input a name and period (in hours) and select amongst the devices registered by their admin (selection of multiple devices is possible). CRUD operations on other table reports are disabled while in create table mode.
+<br><img src="./screenshots/create_table.jpg"><br>
 - Table reports contain travel time data in seconds between each two of the selected devices, in both directions of travel. Origin device names are in the leftmost column, whereas destination device names are in the header row.
+<br><img src="./screenshots/tables.jpg"><br>
 - Table reports can be toggled on and off by clicking on the chevron icon.
 - Table reports can be deleted by clicking on the bin icon.
 - Table reports can be edited by clicking on the pencil icon. The edit form is prepopulated with the current data for the report. Users can change the name, period, add and remove devices and save the updated report (or cancel any changes). 
