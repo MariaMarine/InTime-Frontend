@@ -10,7 +10,7 @@ import { NotificatorService } from 'src/app/core/notification.service';
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
-
+  adminMode: boolean;
   regForm: FormGroup;
 
   constructor(
@@ -27,12 +27,16 @@ export class RegisterComponent implements OnInit {
       password,
     });
   }
+
+  public isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
   public register(): void {
     this.authService.registerUser(this.regForm.value)
     .subscribe(res => {
       this.notificationService.show('Successful registration!', 'success');
-      if (this.authService.isAdmin()){
-        this.router.navigate(['/admin/users'])
+      if (this.authService.isAdmin()) {
+        this.router.navigate(['/admin/users']);
       } else {
         this.router.navigate(['/login']);
       }
@@ -45,8 +49,8 @@ export class RegisterComponent implements OnInit {
   }
 
   public cancel(): void {
-    if (this.authService.isAdmin()){
-      this.router.navigate(['/admin/users'])
+    if (this.authService.isAdmin()) {
+      this.router.navigate(['/admin/users']);
     } else {
       this.router.navigate(['/home']);
     }
